@@ -8,7 +8,8 @@ alias vc="open -a Visual\ Studio\ Code"
 alias gss="g status -s"
 alias gaa="g add :/"
 alias gcm="g commit -n -m"
-alias gp="g push"
+alias gps="g push"
+alias gpl="g pull"
 
 # Paths
 alias ..="cd .."
