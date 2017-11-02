@@ -1,3 +1,3 @@
 ## Jakub's dotfiles
 
-To install, just clone the repo and symlink files
+To install, just clone the repo and symlink files to ~/.internal.dotfiles.
