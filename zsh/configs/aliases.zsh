@@ -11,8 +11,13 @@ alias gcm="g commit -n -m"
 alias gps="g push"
 alias gpl="g pull"
 
+# Tmux
+alias tm="TERM=screen-256color tmux attach -t default || tmux new -s default"
+
 # Paths
-alias ..="cd .."
+
+function cs() { cd "$1" && ls; } 
+function ..() { cd .. && ls; } 
 alias src="cd ~/code/source"
 
 # External

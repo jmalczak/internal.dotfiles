@@ -1,0 +1,35 @@
+{
+    "files.autoSave": "afterDelay",
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/bin": true,
+        "**/obj": true,
+        "**/node_modules": true,
+        "**/.vscode": true
+    },
+    "workbench.startupEditor": "newUntitledFile",
+    "vim.disableAnnoyingNeovimMessage": true,
+    "window.zoomLevel": 0,
+    "workbench.iconTheme": "vscode-icons",
+    "vim.insertModeKeyBindings": [
+        {
+            "before": ["j","k"],
+            "after": ["<Esc>"]
+        }
+    ],
+    "vim.otherModesKeyBindings": [
+        {
+            "before": [";"],
+            "after": [":"]
+        },
+        {
+            "before": [":"],
+            "after": [";"]
+        }
+    ],
+    "workbench.colorTheme": "Dracula"
+}
