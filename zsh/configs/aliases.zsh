@@ -15,7 +15,6 @@ alias gpl="g pull"
 alias tm="TERM=screen-256color tmux attach -t default || tmux new -s default"
 
 # Paths
-
 function cs() { cd "$1" && ls; } 
 function ..() { cd .. && ls; } 
 alias src="cd ~/code/source"
