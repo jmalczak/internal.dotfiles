@@ -27,4 +27,9 @@ function dsta() {  docker start $(docker ps -aqf "name=$1"); }
 function dsto() {  docker stop $(docker ps -aqf "name=$1"); }
 
 # External
-alias wcode="cd /Volumes/\[C\]\ DevBoxWindows/code/"
+function dbwc() {
+    umount "/Volumes/\[C\]\ DevBoxWindows/" 2&>/dev/null
+    mount_smbfs -N  "//Guest:@DevBoxWindows._smb._tcp.local/%5BC%5D%20DevBoxWindows" ~/devboxwindows
+    cd ~/devboxwindows/code
+}
+
