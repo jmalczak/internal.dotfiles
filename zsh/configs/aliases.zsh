@@ -19,5 +19,11 @@ function cs() { cd "$1" && ls; }
 function ..() { cd .. && ls; } 
 alias src="cd ~/code/source"
 
+# Docker
+alias dps='docker ps --format "{{.ID}} :: {{.Names}}"'
+alias dpsa='docker ps -a --format "{{.ID}} :: {{.Names}} :: {{.Status}}"'
+function dsta() {  docker start $(docker ps -aqf "name=$1"); }
+function dsto() {  docker stop $(docker ps -aqf "name=$1"); }
+
 # External
 alias wcode="cd /Volumes/\[C\]\ DevBoxWindows/code/"

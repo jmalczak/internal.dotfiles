@@ -31,5 +31,7 @@
             "after": [";"]
         }
     ],
-    "workbench.colorTheme": "Dracula"
+    "workbench.colorTheme": "Dracula",
+    "extensions.ignoreRecommendations": true,
+    "explorer.confirmDelete": false
 }
