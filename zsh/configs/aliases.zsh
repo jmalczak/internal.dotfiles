@@ -1,5 +1,6 @@
 # General
 alias cls="clear"
+alias reload="source ~/.zshrc"
 
 # Tools
 alias vc="open -a Visual\ Studio\ Code"
