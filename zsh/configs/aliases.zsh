@@ -4,6 +4,7 @@ alias reload="source ~/.zshrc"
 
 # Tools
 alias vc="open -a Visual\ Studio\ Code"
+alias v="mvim -v"
 
 # Git
 alias gss="g status -s"

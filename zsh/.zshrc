@@ -11,3 +11,4 @@ source "$DIR/configs/aliases.zsh"
 # Key Bindings
 bindkey "^r" history-incremental-search-backward
 bindkey '^k' kill-line
+KEYTIMEOUT=1
