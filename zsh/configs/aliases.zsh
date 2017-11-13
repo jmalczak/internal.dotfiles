@@ -12,6 +12,8 @@ alias gaa="g add :/"
 alias gcm="g commit -n -m"
 alias gps="g push"
 alias gpl="g pull"
+alias gcl="g clean -nd"
+alias gclf="g clean -fd"
 
 # Tmux
 alias tm="TERM=screen-256color tmux attach -t default || tmux new -s default"
