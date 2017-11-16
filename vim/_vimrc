@@ -142,6 +142,7 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'tpope/vim-dispatch'
 Plugin 'dracula/vim'
 Plugin 'tmhedberg/SimpylFold'
+Plugin 'junegunn/fzf.vim'
 
 call vundle#end()
 " save undo between open / close sessions, disable swap and set backup and

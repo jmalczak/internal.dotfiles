@@ -5,6 +5,7 @@ alias reload="source ~/.zshrc"
 # Tools
 alias vc="open -a Visual\ Studio\ Code"
 alias v="mvim -v"
+alias vim="mvim -v"
 
 # Git
 alias gss="g status -s"
@@ -32,7 +33,11 @@ function dsto() {  docker stop $(docker ps -aqf "name=$1"); }
 # External
 function dbwc() {
     umount "/Volumes/\[C\]\ DevBoxWindows/" 2&>/dev/null
-    mount_smbfs -N  "//Guest:@DevBoxWindows._smb._tcp.local/%5BC%5D%20DevBoxWindows" ~/devboxwindows
+    if [[ ! -d ~/devboxwindows ]]
+    then
+        mkdir ~/devboxwindows
+        mount_smbfs -N  "//Guest:@DevBoxWindows._smb._tcp.local/%5BC%5D%20DevBoxWindows" ~/devboxwindows
+    fi 
     cd ~/devboxwindows/code
 }
 
