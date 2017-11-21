@@ -36,8 +36,12 @@ function dbwc() {
     if [[ ! -d ~/devboxwindows ]]
     then
         mkdir ~/devboxwindows
-        mount_smbfs -N  "//Guest:@DevBoxWindows._smb._tcp.local/%5BC%5D%20DevBoxWindows" ~/devboxwindows
     fi 
+
+    if [[ ! -d ~/devboxwindows/code ]]
+    then
+        mount_smbfs -N  "//Guest:@DevBoxWindows._smb._tcp.local/%5BC%5D%20DevBoxWindows" ~/devboxwindows
+    fi
     cd ~/devboxwindows/code
 }
 
