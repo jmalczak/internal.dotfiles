@@ -119,7 +119,7 @@ Plugin 'kien/ctrlp.vim'
                 \ 'file' : '\v\.(pyc|swp)$'
                 \ }
 Plugin 'scrooloose/nerdtree'
-    let NERDTreeIgnore = ['\.pyc$', '\.sln$', '\.pyproj$', '\.DotSettings$', '.*node_modules.*$[[dir]]', '.*bower_components.*$[[dir]]','.*bin.*$[[dir]]']
+    let NERDTreeIgnore = ['\.pyc$', '\.sln$', '\.pyproj$', '\.DotSettings$', '.*node_modules.*$[[dir]]', '.*bower_components.*$[[dir]]','.*bin.*$[[dir]]', 'bin$', 'obj$']
     let NERDTreeWinSize = 40
     let NERDTreeMinimalUI = 1
     let NERDTreeDirArrows = 1

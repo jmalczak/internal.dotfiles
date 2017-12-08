@@ -4,8 +4,19 @@ alias reload="source ~/.zshrc"
 
 # Tools
 alias vc="open -a Visual\ Studio\ Code"
-alias v="mvim -v"
-alias vim="mvim -v"
+
+function v() {
+    if [[ $(uname) == "Darwin" ]] 
+    then
+        mvim -v
+    else 
+        vim
+    fi
+}
+
+function vim() {
+    v
+}
 
 # Git
 alias gss="g status -s"
