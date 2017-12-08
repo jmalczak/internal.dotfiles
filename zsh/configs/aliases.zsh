@@ -8,9 +8,9 @@ alias vc="open -a Visual\ Studio\ Code"
 function v() {
     if [[ $(uname) == "Darwin" ]] 
     then
-        mvim -v
+        command mvim -v
     else 
-        vim
+        command vim 
     fi
 }
 
