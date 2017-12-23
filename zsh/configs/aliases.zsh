@@ -8,14 +8,14 @@ alias vc="open -a Visual\ Studio\ Code"
 function v() {
     if [[ $(uname) == "Darwin" ]] 
     then
-        command mvim -v
+        command mvim -v "$@"
     else 
-        command vim 
+        command vim "$@"
     fi
 }
 
 function vim() {
-    v
+    v "$@"
 }
 
 # Git

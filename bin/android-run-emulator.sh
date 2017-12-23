@@ -1,2 +1,2 @@
 #!/bin/bash
-~/Library/Developer/Xamarin/android-sdk-macosx/tools/emulator -avd Android7
+~/Library/Developer/Xamarin/android-sdk-macosx/tools/emulator -avd Android7 &
