@@ -239,16 +239,24 @@
 	<false/>
 	<key>HideScrollbar</key>
 	<true/>
+	<key>Hotkey</key>
+	<true/>
+	<key>HotkeyChar</key>
+	<integer>32</integer>
+	<key>HotkeyCode</key>
+	<integer>49</integer>
 	<key>HotkeyMigratedFromSingleToMulti</key>
 	<true/>
+	<key>HotkeyModifiers</key>
+	<integer>524288</integer>
 	<key>JobName</key>
 	<false/>
 	<key>LoadPrefsFromCustomFolder</key>
 	<true/>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/code/source/internal/internal.dotfiles/iterm</string>
+	<string>~/files/source/internal/internal.dotfiles/iterm</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
-	<string>{712, 448}</string>
+	<string>{720, 448}</string>
 	<key>NSQuotedKeystrokeBinding</key>
 	<string></string>
 	<key>NSRepeatCountBinding</key>
@@ -286,9 +294,9 @@
 		<integer>1</integer>
 	</dict>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>301 517 1018 447 0 0 1920 1177 </string>
+	<string>129 684 796 473 0 0 1920 1200 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 0 955 1177 0 0 1920 1177 </string>
+	<string>226 160 1480 876 0 0 1920 1200 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>753 561 1130 537 0 0 1920 1178 </string>
 	<key>NeverWarnAboutShortLivedSessions_3FE047C1-99E0-498F-9D38-1508DA651FB7</key>
@@ -904,6 +912,8 @@
 			<string></string>
 			<key>Silence Bell</key>
 			<true/>
+			<key>Space</key>
+			<integer>-1</integer>
 			<key>Sync Title</key>
 			<false/>
 			<key>Tags</key>
@@ -990,7 +1000,7 @@
 		</dict>
 	</dict>
 	<key>PrefsCustomFolder</key>
-	<string>/Users/malczu/code/source/internal/internal.dotfiles/iterm</string>
+	<string>/Users/malczu/files/source/internal/internal.dotfiles/iterm</string>
 	<key>Print In Black And White</key>
 	<true/>
 	<key>PromptOnQuit</key>
