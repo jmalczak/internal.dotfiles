@@ -56,3 +56,6 @@ function dbwc() {
     cd ~/devboxwindows/code
 }
 
+alias t="tree -L 1"
+alias tt="tree -L 2"
+
