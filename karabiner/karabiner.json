@@ -312,9 +312,9 @@
                                 "type": "basic"
                             }
                         ]
-                    },                    
+                    },
                     {
-                        "description": "Change command to command tab when pressed alone",
+                        "description": "Witch mapping",
                         "manipulators": [
                             {
                                 "from": {
@@ -328,14 +328,16 @@
                                 "to": [
                                     {
                                         "key_code": "left_command",
-                                        "modifiers": [ ]
+                                        "modifiers": []
                                     }
                                 ],
                                 "to_if_alone": [
                                     {
                                         "key_code": "tab",
-                                        "modifiers": [ 
-                                            "left_option"
+                                        "modifiers": [
+                                            "left_option",
+                                            "left_control",
+                                            "left_shift"
                                         ]
                                     }
                                 ],
@@ -343,7 +345,6 @@
                             }
                         ]
                     }
-
                 ]
             },
             "devices": [
@@ -371,6 +372,19 @@
                     },
                     "ignore": false,
                     "manipulate_caps_lock_led": true,
+                    "simple_modifications": []
+                },
+                {
+                    "disable_built_in_keyboard_if_exists": false,
+                    "fn_function_keys": [],
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "is_pointing_device": true,
+                        "product_id": 45075,
+                        "vendor_id": 1133
+                    },
+                    "ignore": true,
+                    "manipulate_caps_lock_led": false,
                     "simple_modifications": []
                 }
             ],
