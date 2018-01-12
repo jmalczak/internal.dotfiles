@@ -1,0 +1,32 @@
+cask_args appdir: "/Applications"
+tap "caskroom/cask"
+brew "ack"
+brew "fasd"
+brew "fzf"
+brew "neovim"
+brew "the_silver_searcher"
+brew "tldr"
+brew "tmux"
+brew "tree"
+brew "yarn"
+brew "zsh"
+cask "alfred"
+cask "appcleaner"
+cask "itsycal"
+cask "kdiff3"
+cask "nvalt"
+cask "tunnelblick"
+cask "path-finder"
+cask "google-chrome"
+cask "parallels"
+cask "slack"
+cask "spotify"
+cask "iterm2"
+cask "witch"
+mas "Todoist", id: 585829637
+mas "Amphetamine", id: 937984704
+mas "SnippetsLab", id: 1006087419 
+mas "Monosnap", id: 540348655
+mas "Microsoft Remote Desktop", id: 1295203466
+mas "iMazing HEIC Converter", id: 1292198261 
+
