@@ -66,8 +66,10 @@ then
     mkdir ~/.vim
 fi
 
-rm -rf ~/.vim/bundle
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+if [ ! -d ~/.vim/bundle ]
+then
+    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+fi
 
 echo "Configuring karabiner"
 
