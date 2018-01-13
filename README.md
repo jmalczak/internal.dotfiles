@@ -1,7 +1,12 @@
-## Jakub's dotfiles
+# Jakub's dotfiles
 
-### Requires Prezto
+## System Specific Folders
+
+_mac - macOS specific
+_windows - windows specific
+
+## ZSH configuration require prezto
 https://github.com/sorin-ionescu/prezto
 
-### Install
-To install, just clone the repo and symlink files to ~/.internal.dotfiles.
+## Install
+To install, use system specific install scripts

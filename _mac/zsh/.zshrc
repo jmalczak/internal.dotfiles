@@ -1,6 +1,6 @@
 # Env Variables
-PATH="$PATH:/usr/local/bin/:$HOME/.internal.dotfiles/bin"
-DIR="$HOME/.internal.dotfiles/zsh"
+PATH="$PATH:/usr/local/bin/:$HOME/.internal.dotfiles/_mac/_bin"
+DIR="$HOME/.internal.dotfiles/_mac/zsh"
 export TERM="xterm-256color"
 
 # Include configs
