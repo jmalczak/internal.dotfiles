@@ -7,6 +7,7 @@ cinst git
 cinst nodejs
 cinst visualstudiocode
 cinst dropbox
+cinst mongodb
 
 echo "Configuring Windows features"
 
@@ -23,3 +24,11 @@ cinst Microsoft-Windows-Subsystem-Linux -source WindowsFeatures
 
 echo "Remove not needed Windows software"
 & "$HOME\.internal.dotfiles\_windows\_bin\removeNotNeededWindowsSoftware.ps1"
+
+echo "Configuring vscode"
+rm -ErrorAction SilentlyContinue -Force $HOME\AppData\Roaming\Code\User\settings.json
+cmd /c mklink "$HOME\AppData\Roaming\Code\User\settings.json"  "$HOME\.internal.dotfiles\vscode\settings.json"
+
+echo "Configuring vsvim"
+rm -ErrorAction SilentlyContinue -Force $HOME\_vsvimrc
+cmd /c mklink "$HOME\_vsvimrc"  "$HOME\.internal.dotfiles\vim\_vsvimrc"
