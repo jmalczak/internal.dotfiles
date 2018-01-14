@@ -2,12 +2,13 @@
 
 SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
 
-echo "Setting up system "
+echo "Setting up system"
 
 rm -f ~/.internal.dotfiles 
 ln -s "$SCRIPTPATH/../../../internal.dotfiles" ~/.internal.dotfiles
 
 echo "Installing apps"
+
 cd "$SCRIPTPATH/../brew/"
 brew bundle
 cd -
@@ -28,11 +29,11 @@ rm -rf ~/.zprezto
 git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
 
 rm -f ~/.zshrc
-ln -s "$SCRIPTPATH/../zsh/.zshrc" ~/.zshrc
+ln -s "$SCRIPTPATH/../../zsh/.zshrc" ~/.zshrc
 
 
 rm -f ~/.zpreztorc
-ln -s "$SCRIPTPATH/../zsh/.zpreztorc" ~/.zpreztorc
+ln -s "$SCRIPTPATH/../../zsh/.zpreztorc" ~/.zpreztorc
 
 echo "Configuring tmux"
 
