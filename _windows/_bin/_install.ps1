@@ -22,4 +22,4 @@ echo "Developer mode is needed to install WSL"
 cinst Microsoft-Windows-Subsystem-Linux -source WindowsFeatures
 
 echo "Remove not needed Windows software"
-./removeNotNeededWindowsSoftware.ps1
+& "$HOME\.internal.dotfiles\_windows\_bin\removeNotNeededWindowsSoftware.ps1"
