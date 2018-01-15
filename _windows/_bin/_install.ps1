@@ -1,6 +1,5 @@
 echo "Installing apps"
 
-cinst neovim
 cinst googlechrome
 cinst 7zip
 cinst git
@@ -8,6 +7,10 @@ cinst nodejs
 cinst visualstudiocode
 cinst dropbox
 cinst mongodb
+
+echo "Add mongodb to PATH"
+$Path=(Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name Path).Path
+Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH -Value ($Path += ';C:\Program Files\MongoDB\Server\3.6\bin')
 
 echo "Configuring Windows features"
 
