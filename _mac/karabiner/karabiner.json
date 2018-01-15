@@ -335,8 +335,8 @@
                                     {
                                         "key_code": "tab",
                                         "modifiers": [
-                                            "left_option",
                                             "left_control",
+                                            "left_option",
                                             "left_shift"
                                         ]
                                     }

@@ -32,6 +32,7 @@ cask "bitbar"
 cask "dropbox"
 cask "textmate"
 cask "transmit"
+cask "docker"
 mas "Todoist", id: 585829637
 mas "Amphetamine", id: 937984704
 mas "SnippetsLab", id: 1006087419 
