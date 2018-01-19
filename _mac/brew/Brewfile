@@ -4,6 +4,7 @@ brew "ack"
 brew "fasd"
 brew "fzf"
 brew "neovim"
+brew "vifm"
 brew "the_silver_searcher"
 brew "tldr"
 brew "tmux"
@@ -39,4 +40,4 @@ mas "SnippetsLab", id: 1006087419
 mas "Monosnap", id: 540348655
 mas "Microsoft Remote Desktop", id: 1295203466
 mas "iMazing HEIC Converter", id: 1292198261 
-
+mas "LastPass Password Manager", id: 926036361 
