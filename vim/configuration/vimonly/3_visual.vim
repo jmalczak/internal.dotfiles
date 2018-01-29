@@ -10,3 +10,11 @@ colorscheme dracula
 
 " highlight curren line 
 set cursorline
+
+if has("gui_running")
+  if has("gui_gtk2")
+  elseif has("gui_macvim")
+  elseif has("gui_win32")
+    set guifont=Consolas:h11
+  endif
+endif
