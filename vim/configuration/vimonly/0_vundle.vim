@@ -30,6 +30,7 @@ Plugin 'scrooloose/nerdtree'
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 Plugin 'itchyny/lightline.vim'
+Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
     " plugin 'plasticboy/vim-markdown' configuration
     let g:vim_markdown_folding_disabled=1
