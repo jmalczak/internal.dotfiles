@@ -1,3 +1,7 @@
+fpath=(
+  ${HOME}/.internal.dotfiles/zsh/zprezto/modules/prompt/functions
+  ${fpath}
+)
 #
 # Sets Prezto options.
 #
@@ -112,7 +116,7 @@ zstyle ':prezto:module:editor' key-bindings 'vi'
 # Set the prompt theme to load.
 # Setting it to 'random' loads a random theme.
 # Auto set to 'off' on dumb terminals.
-zstyle ':prezto:module:prompt' theme 'steeef'
+zstyle ':prezto:module:prompt' theme 'malczu'
 
 # Set the working directory prompt display length.
 # By default, it is set to 'short'. Set it to 'long' (without '~' expansion)
