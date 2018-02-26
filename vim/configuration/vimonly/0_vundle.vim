@@ -46,5 +46,6 @@ Plugin 'dracula/vim'
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
+Plugin 'junegunn/goyo.vim'
 
 call vundle#end()
