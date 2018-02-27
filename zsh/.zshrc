@@ -16,3 +16,6 @@ KEYTIMEOUT=1
 # Correction fix
 unsetopt correct
 clear
+
+export LC_ALL=pl_PL.UTF-8
+export LANG=pl_PL.UTF-8
