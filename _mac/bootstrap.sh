@@ -1,71 +1,42 @@
 #!/bin/sh
 
-SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
+source ../bootstrap/bootstrap_shared.sh
+echo "-----------------------------------------"
+echo "Setting up the macOS system"
+echo "-----------------------------------------"
+echo ""
 
-echo "Setting up system"
 
-rm -f ~/.internal.dotfiles 
-ln -s "$SCRIPTPATH/../../internal.dotfiles" ~/.internal.dotfiles
-
-echo "Installing apps"
-
-cd "$SCRIPTPATH/brew/"
+echo "Installing apps with brew"
+cd brew/
 brew bundle
 cd -
 
+
 echo "Configuring ssh"
+create_if_not_exists ~/.ssh
+replace_symlink ssh/config ~/.ssh/config
 
-if [ ! -d ~/.ssh ]
-then
-    mkdir ~/.ssh
-fi
-
-rm -f ~/.ssh/config
-ln -s "$SCRIPTPATH/ssh/config" ~/.ssh/config
 
 echo "Configuring zsh"
+replace_symlink zsh/.zshrc ~/.zshrc
+replace_symlink zsh/.zpreztorc ~/.zpreztorc
 
-rm -rf ~/.zprezto
-git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
-
-rm -f ~/.zshrc
-ln -s "$SCRIPTPATH/../zsh/.zshrc" ~/.zshrc
-
-
-rm -f ~/.zpreztorc
-ln -s "$SCRIPTPATH/../zsh/.zpreztorc" ~/.zpreztorc
 
 echo "Configuring tmux"
+replace_symlink tmux/.tmux.conf ~/.tmux.conf
 
-rm -f ~/.tmux.conf
-ln -s "$SCRIPTPATH/../tmux/.tmux.conf" ~/.tmux.conf
 
 echo "Configuring vscode"
-
-rm -f ~/Library/Application\ Support/Code/User/settings.json
-ln -s "$SCRIPTPATH/../vscode/settings.json" ~/Library/Application\ Support/Code/User/settings.json 
-
+replace_symlink vscode/settings.json ~/Library/Application\ Support/Code/User/settings.json
 defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
 
+
 echo "Configuring neovim"
-
-if [ ! -d ~/.config ]
-then
-    mkdir ~/.config
-fi
-
-if [ ! -d ~/.config/nvim ]
-then
-    mkdir ~/.config/nvim
-fi
-
-rm -f ~/.config/nvim/init.vim
-ln -s "$SCRIPTPATH/../vim/_vimrc" ~/.config/nvim/init.vim
-
-if [ ! -d ~/.vim ]
-then
-    mkdir ~/.vim
-fi
+create_if_not_exists ~/.config
+create_if_not_exists ~/.config/nvim
+replace_symlink vim/_vimrc ~/.config/nvim/init.vim
+create_if_not_exists ~/.vim
 
 if [ ! -d ~/.vim/bundle ]
 then
@@ -73,11 +44,5 @@ then
 fi
 
 echo "Configuring karabiner"
-
-if [ ! -d ~/.config/karabiner ]
-then
-    mkdir ~/.config/karabiner
-fi
-
-rm -f ~/.config/karabiner/karabiner.json
-ln -s "$SCRIPTPATH/karabiner/karabiner.json" ~/.config/karabiner/karabiner.json
+create_if_not_exists ~/.config/karabiner
+replace_symlink karabiner/karabiner.json ~/.config/karabiner/karabiner.json
