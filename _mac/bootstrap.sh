@@ -9,34 +9,34 @@ echo ""
 
 echo "Installing apps with brew"
 cd brew/
-brew bundle
-cd -
+#brew bundle
+cd ../
 
 
 echo "Configuring ssh"
-create_if_not_exists ~/.ssh
-replace_symlink ssh/config ~/.ssh/config
+create_if_not_exist .ssh
+replace_symlink ssh/config .ssh/config
 
 
 echo "Configuring zsh"
-replace_symlink zsh/.zshrc ~/.zshrc
-replace_symlink zsh/.zpreztorc ~/.zpreztorc
+replace_symlink zsh/.zshrc .zshrc
+replace_symlink zsh/.zpreztorc .zpreztorc
 
 
 echo "Configuring tmux"
-replace_symlink tmux/.tmux.conf ~/.tmux.conf
+replace_symlink tmux/.tmux.conf .tmux.conf
 
 
 echo "Configuring vscode"
-replace_symlink vscode/settings.json ~/Library/Application\ Support/Code/User/settings.json
+replace_symlink vscode/settings.json Library/Application\ Support/Code/User/settings.json
 defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
 
 
 echo "Configuring neovim"
-create_if_not_exists ~/.config
-create_if_not_exists ~/.config/nvim
-replace_symlink vim/_vimrc ~/.config/nvim/init.vim
-create_if_not_exists ~/.vim
+create_if_not_exist .config
+create_if_not_exist .config/nvim
+replace_symlink vim/_vimrc .config/nvim/init.vim
+create_if_not_exist .vim
 
 if [ ! -d ~/.vim/bundle ]
 then
@@ -44,5 +44,5 @@ then
 fi
 
 echo "Configuring karabiner"
-create_if_not_exists ~/.config/karabiner
-replace_symlink karabiner/karabiner.json ~/.config/karabiner/karabiner.json
+create_if_not_exist .config/karabiner
+replace_symlink karabiner/karabiner.json .config/karabiner/karabiner.json

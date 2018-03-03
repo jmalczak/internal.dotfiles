@@ -1,13 +1,13 @@
 #!/bin/sh
 
 replace_symlink() {
-    rm -f $2
-    ln -s $1 $2
+    rm -f "$HOME/$2"
+    ln -s "$HOME/.internal.dotfiles/$1" "$HOME/$2"
 }
 
 create_if_not_exist() {
-    if [ ! -d $1 ]
+    if [ ! -d "$HOME/$1" ]
     then
-        mkdir $1
+        mkdir "$HOME/$1"
     fi
 }
