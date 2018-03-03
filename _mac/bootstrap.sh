@@ -44,7 +44,7 @@ then
 fi
 
 echo "Configuring karabiner"
-replace_symlink _mac/karabiner/ .config/karabiner/
+replace_symlink _mac/karabiner .config/karabiner
 
 
 echo "Configuring kitty"

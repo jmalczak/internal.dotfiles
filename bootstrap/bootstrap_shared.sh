@@ -1,7 +1,7 @@
 #!/bin/sh
 
 replace_symlink() {
-    rm -f "$HOME/$2"
+    rm -rf "$HOME/$2"
     ln -s "$HOME/.internal.dotfiles/$1" "$HOME/$2"
 }
 
