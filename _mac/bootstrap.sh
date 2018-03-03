@@ -6,10 +6,11 @@ echo "Setting up the macOS system"
 echo "-----------------------------------------"
 echo ""
 
+create_if_not_exist .config
 
 echo "Installing apps with brew"
 cd brew/
-#brew bundle
+brew bundle
 cd ../
 
 
@@ -33,7 +34,6 @@ defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
 
 
 echo "Configuring neovim"
-create_if_not_exist .config
 create_if_not_exist .config/nvim
 replace_symlink vim/_vimrc .config/nvim/init.vim
 create_if_not_exist .vim
@@ -44,5 +44,9 @@ then
 fi
 
 echo "Configuring karabiner"
-create_if_not_exist .config/karabiner
-replace_symlink karabiner/karabiner.json .config/karabiner/karabiner.json
+replace_symlink _mac/karabiner/ .config/karabiner/
+
+
+echo "Configuring kitty"
+create_if_not_exist .config/kitty
+replace_symlink _mac/kitty/kitty.conf .config/kitty/kitty.conf
