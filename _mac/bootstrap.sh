@@ -16,7 +16,7 @@ cd ../
 
 echo "Configuring ssh"
 create_if_not_exist .ssh
-replace_symlink ssh/config .ssh/config
+replace_symlink _mac/ssh/config .ssh/config
 
 
 echo "Configuring zsh"
