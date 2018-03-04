@@ -17,20 +17,24 @@ if ! zgen saved; then
 
   # Specify plugins here
   zgen prezto
+  zgen prezto '*:*' color 'yes'
 
   # Load prezto modules
   zgen prezto environment
   zgen prezto git
 
-  zgen prezto editor 
   zgen prezto editor key-bindings 'vi'
+  zgen prezto editor 
 
   zgen prezto directory 
   zgen prezto spectrum 
   zgen prezto utility 
 
-  zgen prezto prompt 
+  zgen prezto tmux:auto-start local 'yes'
+  zgen prezto tmux 
+
   zgen prezto prompt theme 'malczu'
+  zgen prezto prompt 
   
   # Generate the init script from plugins above
   zgen save
