@@ -34,11 +34,6 @@ echo "Configuring tmux"
 replace_symlink tmux/.tmux.conf .tmux.conf
 
 
-echo "Configuring vscode"
-replace_symlink vscode/settings.json Library/Application\ Support/Code/User/settings.json
-defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
-
-
 echo "Configuring neovim"
 create_if_not_exist .config/nvim
 replace_symlink vim/_vimrc .config/nvim/init.vim
