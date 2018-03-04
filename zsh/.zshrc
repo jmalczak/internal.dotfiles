@@ -1,3 +1,7 @@
+# Set locale
+export LC_ALL=pl_PL.UTF-8
+export LANG=pl_PL.UTF-8
+
 # Env Variables
 PATH="$PATH:/usr/local/bin/:$HOME/.internal.dotfiles/_mac/_bin:$HOME/.internal.dotfiles/_linux/_bin"
 DIR="$HOME/.internal.dotfiles/zsh"
@@ -51,4 +55,3 @@ KEYTIMEOUT=1
 
 # Correction fix
 unsetopt correct
-clear
