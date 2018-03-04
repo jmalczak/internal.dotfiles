@@ -27,7 +27,6 @@ then
 fi
 
 replace_symlink zsh/.zshrc .zshrc
-replace_symlink zsh/.zpreztorc .zpreztorc
 
 
 echo "Configuring tmux"

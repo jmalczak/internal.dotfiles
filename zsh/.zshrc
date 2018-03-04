@@ -3,6 +3,12 @@ PATH="$PATH:/usr/local/bin/:$HOME/.internal.dotfiles/_mac/_bin:$HOME/.internal.d
 DIR="$HOME/.internal.dotfiles/zsh"
 export TERM="xterm-256color"
 
+# zprezto additional modules path
+fpath=(
+  ${HOME}/.internal.dotfiles/zsh/zprezto/modules/prompt/functions
+  ${fpath}
+)
+
 # Set up zgen
 source "${HOME}/.zgen/zgen.zsh"
 
@@ -11,6 +17,20 @@ if ! zgen saved; then
 
   # specify plugins here
   zgen prezto
+
+  # load prezto modules
+  zgen prezto environment
+  zgen prezto git
+
+  zgen prezto editor 
+  zgen prezto editor key-bindings 'vi'
+
+  zgen prezto directory 
+  zgen prezto spectrum 
+  zgen prezto utility 
+
+  zgen prezto prompt 
+  zgen prezto prompt theme 'malczu'
   
   # generate the init script from plugins above
   zgen save
