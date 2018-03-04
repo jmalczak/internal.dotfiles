@@ -20,6 +20,12 @@ replace_symlink ssh/config .ssh/config
 
 
 echo "Configuring zsh"
+
+if [ ! -d ~/.zgen ]
+then
+    git clone https://github.com/tarjoilija/zgen.git "${HOME}/.zgen"
+fi
+
 replace_symlink zsh/.zshrc .zshrc
 replace_symlink zsh/.zpreztorc .zpreztorc
 

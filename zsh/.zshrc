@@ -3,6 +3,19 @@ PATH="$PATH:/usr/local/bin/:$HOME/.internal.dotfiles/_mac/_bin:$HOME/.internal.d
 DIR="$HOME/.internal.dotfiles/zsh"
 export TERM="xterm-256color"
 
+# Set up zgen
+source "${HOME}/.zgen/zgen.zsh"
+
+# if the init scipt doesn't exist
+if ! zgen saved; then
+
+  # specify plugins here
+  zgen prezto
+  
+  # generate the init script from plugins above
+  zgen save
+fi
+
 # Include configs
 source "$DIR/configs/prezto.zsh"
 source "$DIR/configs/fasd.zsh"
