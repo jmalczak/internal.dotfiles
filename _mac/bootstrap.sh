@@ -30,6 +30,14 @@ replace_symlink zsh/.zshrc .zshrc
 
 
 echo "Configuring tmux"
+create_if_not_exist .tmux
+create_if_not_exist .tmux/plugins
+
+if [ ! -d ~/.tmux/plugins/tpm ]
+then
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+fi
+
 replace_symlink tmux/.tmux.conf .tmux.conf
 
 
