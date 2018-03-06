@@ -9,7 +9,6 @@ echo ""
 create_if_not_exist .config
 
 echo "Installing apps with apt-get"
-
 sudo add-apt-repository -y ppa:neovim-ppa/stable
 sudo add-apt-repository -y ppa:aacebedo/fasd
 
@@ -19,7 +18,9 @@ sudo apt-get install -y zsh tmux neovim fasd language-pack-pl language-pack-pl-b
 
 echo "Configuring ssh"
 create_if_not_exist .ssh
-replace_symlink _linux/ssh/config .ssh/config
+copy_if_not_exists _linux/ssh/config .ssh/config
+
+chmod 600 ~/.ssh/config
 
 
 echo "Configuring zsh"
