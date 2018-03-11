@@ -31,6 +31,7 @@ then
 fi
 
 replace_symlink zsh/.zshrc .zshrc
+copy_all_files_from_folder_if_not_exists _linux/zsh/configs .local_configs
 
 
 echo "Configuring tmux"
