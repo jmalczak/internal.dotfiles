@@ -1,3 +1,8 @@
+echo "-----------------------------------------"
+echo "Setting up the Windows system"
+echo "-----------------------------------------"
+echo ""
+
 echo "Installing apps"
 
 cinst googlechrome
@@ -27,7 +32,7 @@ echo "Developer mode is needed to install WSL"
 cinst Microsoft-Windows-Subsystem-Linux -source WindowsFeatures
 
 echo "Remove not needed Windows software"
-& "$HOME\.internal.dotfiles\_windows\_bin\removeNotNeededWindowsSoftware.ps1"
+& "$HOME\.internal.dotfiles\_windows\bin\removeNotNeededWindowsSoftware.ps1"
 
 echo "Configuring vscode"
 rm -ErrorAction SilentlyContinue -Force $HOME\AppData\Roaming\Code\User\settings.json
