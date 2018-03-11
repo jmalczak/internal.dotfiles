@@ -16,7 +16,7 @@ cd ../
 
 echo "Configuring ssh"
 create_if_not_exist .ssh
-copy_if_not_exists _linux/ssh/config .ssh/config
+copy_if_not_exists _mac/ssh/config .ssh/config
 
 chmod 600 ~/.ssh/config
 
@@ -29,6 +29,7 @@ then
 fi
 
 replace_symlink zsh/.zshrc .zshrc
+copy_all_files_from_folder_if_not_exists _mac/zsh/configs .local_configs
 
 
 echo "Configuring tmux"

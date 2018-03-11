@@ -23,3 +23,13 @@ copy_if_not_exists() {
         cp "$HOME/.internal.dotfiles/$1" "$HOME/$2"
     fi
 }
+
+copy_all_files_from_folder_if_not_exists() {
+    for file in $(ls "$HOME/.internal.dotfiles/$1") 
+    do
+        if [ ! -e "$HOME/$2/$file" ]
+        then
+            cp "$HOME/.internal.dotfiles/$1/$file" "$HOME/$2"
+        fi
+    done
+}

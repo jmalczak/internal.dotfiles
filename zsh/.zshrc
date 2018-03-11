@@ -3,7 +3,7 @@ export LC_ALL=pl_PL.UTF-8
 export LANG=pl_PL.UTF-8
 
 # Env Variables
-PATH="$PATH:/usr/local/bin/:$HOME/.internal.dotfiles/_mac/_bin:$HOME/.internal.dotfiles/_linux/_bin"
+PATH="$PATH:/usr/local/bin/"
 DIR="$HOME/.internal.dotfiles/zsh"
 export TERM="xterm-256color"
 
@@ -55,3 +55,13 @@ KEYTIMEOUT=1
 
 # Correction fix
 unsetopt correct
+
+# Load local settings
+
+if [ -d ~/.local_configs ]
+then
+    for file in $(ls ~/.local_configs/*.zsh)
+    do
+        source "$file"
+    done
+fi
