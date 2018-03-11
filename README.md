@@ -15,10 +15,12 @@ To install all files just run boostrap script from one of system specific folder
 
 All scripts depend on specific location on .internal.dotfiles folder. It should be symlinked in $HOME folder on any platform.
 
+macOS / Linux
 ````bash
 ln -s internal.dotfiles ~/.internal.dotfiles
 ````
 
+Windows
 ````powershell
 cd $HOME && cmd /c mklink -D .internal.dotfiles internal.dotfiles
 ````
