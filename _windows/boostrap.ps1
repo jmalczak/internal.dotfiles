@@ -7,6 +7,7 @@ cinst nodejs
 cinst visualstudiocode
 cinst dropbox
 cinst mongodb
+cinst p4merge 
 
 echo "Add mongodb to PATH"
 $Path=(Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name Path).Path
