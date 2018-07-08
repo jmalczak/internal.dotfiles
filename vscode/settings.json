@@ -34,5 +34,6 @@
     "workbench.colorTheme": "Dracula",
     "extensions.ignoreRecommendations": true,
     "explorer.confirmDelete": false,
-    "explorer.confirmDragAndDrop": false
+    "explorer.confirmDragAndDrop": false,
+    "vsicons.dontShowNewVersionMessage": true
 }
