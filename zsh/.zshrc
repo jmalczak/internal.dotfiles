@@ -37,7 +37,7 @@ if ! zgen saved; then
   zgen prezto tmux:auto-start local 'yes'
   zgen prezto tmux 
 
-  zgen prezto prompt theme 'malczu'
+  zgen prezto prompt theme 'sorin'
   zgen prezto prompt 
   
   # Generate the init script from plugins above
