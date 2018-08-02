@@ -1,7 +1,3 @@
-# Set locale
-export LC_ALL=pl_PL.UTF-8
-export LANG=pl_PL.UTF-8
-
 # Env Variables
 PATH="$PATH:/usr/local/bin/"
 DIR="$HOME/.internal.dotfiles/zsh"
