@@ -30,7 +30,7 @@ if ! zgen saved; then
   zgen prezto spectrum 
   zgen prezto utility 
 
-  zgen prezto tmux:auto-start local 'yes'
+#  zgen prezto tmux:auto-start local 'yes'
   zgen prezto tmux 
 
   zgen prezto prompt theme 'sorin'

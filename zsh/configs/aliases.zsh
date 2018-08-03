@@ -40,5 +40,8 @@ alias dpsa='docker ps -a --format "{{.ID}} :: {{.Names}} :: {{.Status}}"'
 function dsta() {  docker start $(docker ps -aqf "name=$1"); }
 function dsto() {  docker stop $(docker ps -aqf "name=$1"); }
 
+# Midnight Commander
+alias mc='LANG=en_US.UTF-8 LC_CTYPE=en_US.UTF-8 mc'
+
 alias t="tree -L 1"
 alias tt="tree -L 2"
