@@ -1,7 +1,3 @@
-# Set locale
-export LC_ALL=pl_PL.UTF-8
-export LANG=pl_PL.UTF-8
-
 # Env Variables
 PATH="$PATH:/usr/local/bin/"
 DIR="$HOME/.internal.dotfiles/zsh"
@@ -34,7 +30,7 @@ if ! zgen saved; then
   zgen prezto spectrum 
   zgen prezto utility 
 
-  zgen prezto tmux:auto-start local 'yes'
+#  zgen prezto tmux:auto-start local 'yes'
   zgen prezto tmux 
 
   zgen prezto prompt theme 'sorin'

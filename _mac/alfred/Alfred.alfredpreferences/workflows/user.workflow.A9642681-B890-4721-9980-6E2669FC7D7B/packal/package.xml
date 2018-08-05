@@ -1,8 +1,0 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<workflow>
-  <name>Fuzzy Folders</name>
-  <version>2.3</version>
-  <bundle>net.deanishe.alfred-fuzzyfolders</bundle>
-  <updated>1473512835</updated>
-  <file>fuzzy_folders-2.3.alfredworkflow</file>
-</workflow>
