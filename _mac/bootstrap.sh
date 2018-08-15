@@ -66,3 +66,7 @@ replace_symlink _mac/karabiner .config/karabiner
 echo "Configuring kitty"
 create_if_not_exist .config/kitty
 replace_symlink _mac/kitty/kitty.conf .config/kitty/kitty.conf
+
+
+echo "Configuring mc"
+replace_symlink _mc .config/mc

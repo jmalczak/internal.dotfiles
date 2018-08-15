@@ -13,7 +13,7 @@ sudo add-apt-repository -y ppa:neovim-ppa/stable
 sudo add-apt-repository -y ppa:aacebedo/fasd
 
 sudo apt-get update
-sudo apt-get install -y zsh tmux neovim fasd language-pack-pl language-pack-pl-base
+sudo apt-get install -y zsh tmux neovim fasd language-pack-pl language-pack-pl-base mc
 
 
 echo "Configuring ssh"
@@ -55,3 +55,7 @@ if [ ! -d ~/.vim/bundle ]
 then
     git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 fi
+
+
+echo "Configuring mc"
+replace_symlink _mc .config/mc
