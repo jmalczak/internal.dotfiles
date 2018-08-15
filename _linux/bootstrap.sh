@@ -58,4 +58,4 @@ fi
 
 
 echo "Configuring mc"
-replace_symlink _mc .config/mc
+replace_symlink mc .config/mc
