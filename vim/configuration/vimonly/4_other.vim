@@ -22,3 +22,6 @@ set nospell
 
 " no show match
 set noshowmatch
+
+" Fix Macos clipboard integration
+set clipboard=unnamed

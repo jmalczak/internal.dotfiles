@@ -92,9 +92,6 @@ au BufNewFile,BufRead *.ejs set filetype=html
 " Enable folding
 set foldmethod=indent
 set foldlevel=99
-
-" Fix Macos clipboard integration
-set clipboard=unnamed
 " set time vim waits for next character
 set timeoutlen=200
 
@@ -230,3 +227,6 @@ set nospell
 
 " no show match
 set noshowmatch
+
+" Fix Macos clipboard integration
+set clipboard=unnamed
