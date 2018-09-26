@@ -12,7 +12,6 @@
         "**/.vscode": true
     },
     "workbench.startupEditor": "newUntitledFile",
-    "vim.disableAnnoyingNeovimMessage": true,
     "window.zoomLevel": 0,
     "workbench.iconTheme": "vscode-icons",
     "vim.insertModeKeyBindings": [
@@ -21,7 +20,7 @@
             "after": ["<Esc>"]
         }
     ],
-    "vim.otherModesKeyBindings": [
+    "vim.normalModeKeyBindings": [
         {
             "before": [";"],
             "after": [":"]
@@ -36,5 +35,6 @@
     "explorer.confirmDelete": false,
     "explorer.confirmDragAndDrop": false,
     "vsicons.dontShowNewVersionMessage": true,
-    "typescript.updateImportsOnFileMove.enabled": "always"
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "editor.formatOnSave": true 
 }

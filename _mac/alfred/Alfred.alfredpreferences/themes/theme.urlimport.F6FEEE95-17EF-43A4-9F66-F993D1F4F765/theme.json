@@ -45,7 +45,7 @@
       "borderColor" : "#000000FF",
       "blur" : 20,
       "roundness" : 3,
-      "paddingVertical" : 5
+      "paddingVertical" : 0
     },
     "credit" : "YourtionGuo<yourtion@gmail.com>",
     "separator" : {
