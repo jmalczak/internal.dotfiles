@@ -13,7 +13,7 @@ sudo add-apt-repository -y ppa:neovim-ppa/stable
 sudo add-apt-repository -y ppa:aacebedo/fasd
 
 sudo apt-get update
-sudo apt-get install -y zsh tmux neovim fasd language-pack-pl language-pack-pl-base mc
+sudo apt-get install -y zsh tmux neovim fasd language-pack-pl language-pack-pl-base mc tig ranger
 
 
 echo "Configuring ssh"

@@ -4,7 +4,6 @@ brew "ack"
 brew "fasd"
 brew "fzf"
 brew "neovim"
-brew "vifm"
 brew "the_silver_searcher"
 brew "tldr"
 brew "tmux"
@@ -12,24 +11,22 @@ brew "reattach-to-user-namespace"
 brew "tree"
 brew "yarn"
 brew "zsh"
+brew "ranger"
+brew "tig"
 cask "alfred"
 cask "appcleaner"
 cask "itsycal"
 cask "kdiff3"
-cask "nvalt"
 cask "tunnelblick"
-cask "path-finder"
 cask "google-chrome"
 cask "parallels"
 cask "slack"
 cask "spotify"
 cask "iterm2"
-cask "witch"
 cask "bettertouchtool"
 cask "karabiner-elements"
 cask "visual-studio-code"
 cask "postman"
-cask "bitbar"
 cask "dropbox"
 cask "textmate"
 cask "transmit"
@@ -41,4 +38,7 @@ mas "SnippetsLab", id: 1006087419
 mas "Monosnap", id: 540348655
 mas "Microsoft Remote Desktop", id: 1295203466
 mas "iMazing HEIC Converter", id: 1292198261 
-mas "LastPass Password Manager", id: 926036361 
+mas "iA Writer", id: 775737590
+mas "Magnet", id: 441258766 
+mas "Telegram", id: 747648890 
+mas "SimpleMind Lite", id: 439654198 
