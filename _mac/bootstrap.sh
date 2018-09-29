@@ -70,3 +70,8 @@ replace_symlink _mac/kitty/kitty.conf .config/kitty/kitty.conf
 
 echo "Configuring mc"
 replace_symlink _mc .config/mc
+
+echo "Configure macOS"
+
+defaults write -g InitialKeyRepeat -int 15
+defaults write -g KeyRepeat -int 2
