@@ -47,5 +47,6 @@ Plugin 'tmhedberg/SimpylFold'
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
 Plugin 'junegunn/goyo.vim'
+Plugin 'posva/vim-vue'
 
 call vundle#end()
