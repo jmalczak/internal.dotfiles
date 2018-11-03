@@ -2,6 +2,7 @@
 PATH="$PATH:/usr/local/bin/"
 DIR="$HOME/.internal.dotfiles/zsh"
 export TERM="xterm-256color"
+export LC_CTYPE="UTF-8"
 
 # Zprezto additional modules path
 fpath=(

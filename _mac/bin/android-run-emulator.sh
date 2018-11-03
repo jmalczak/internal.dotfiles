@@ -1,2 +1,2 @@
 #!/bin/bash
-~/Library/Developer/Xamarin/android-sdk-macosx/tools/emulator -avd Android_Accelerated_Nougat &
+~/Library/Developer/Xamarin/android-sdk-macosx/tools/emulator -avd Android_Accelerated_Oreo &

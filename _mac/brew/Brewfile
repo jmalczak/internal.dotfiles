@@ -13,6 +13,7 @@ brew "yarn"
 brew "zsh"
 brew "ranger"
 brew "tig"
+brew "rlue/utils/timer"
 cask "alfred"
 cask "appcleaner"
 cask "itsycal"
@@ -33,7 +34,6 @@ cask "docker"
 cask "p4merge"
 cask "keyboard-maestro"
 cask "keepassxc"
-cask "p4v"
 mas "Todoist", id: 585829637
 mas "Amphetamine", id: 937984704
 mas "SnippetsLab", id: 1006087419 
