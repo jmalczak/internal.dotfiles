@@ -1,0 +1,47 @@
+# focus window
+cmd + shift - h : chunkc tiling::window --focus west
+cmd + shift - j : chunkc tiling::window --focus south
+cmd + shift - k : chunkc tiling::window --focus north
+cmd + shift - l : chunkc tiling::window --focus east
+
+# equalize size of windows
+shift + cmd - 0 : chunkc tiling::desktop --equalize
+
+# move window
+shift + cmd - h : chunkc tiling::window --warp west
+shift + cmd - j : chunkc tiling::window --warp south
+shift + cmd - k : chunkc tiling::window --warp north
+shift + cmd - l : chunkc tiling::window --warp east
+
+# send window to desktop and follow focus
+alt + cmd - 1 : chunkc tiling::window --send-to-desktop 1; chunkc tiling::desktop --focus 1
+alt + cmd - 2 : chunkc tiling::window --send-to-desktop 2; chunkc tiling::desktop --focus 2
+alt + cmd - 3 : chunkc tiling::window --send-to-desktop 3; chunkc tiling::desktop --focus 3
+alt + cmd - 4 : chunkc tiling::window --send-to-desktop 4; chunkc tiling::desktop --focus 4
+
+# increase region size
+shift + cmd - a : chunkc tiling::window --use-temporary-ratio -0.1 --adjust-window-edge east 
+shift + cmd - s : chunkc tiling::window --use-temporary-ratio -0.1 --adjust-window-edge north 
+shift + cmd - w : chunkc tiling::window --use-temporary-ratio 0.1 --adjust-window-edge north
+shift + cmd - d : chunkc tiling::window --use-temporary-ratio 0.1 --adjust-window-edge east
+
+# set insertion point for focused container
+ctrl + cmd - f : chunkc tiling::window --use-insertion-point cancel
+ctrl + cmd - h : chunkc tiling::window --use-insertion-point west
+ctrl + cmd - j : chunkc tiling::window --use-insertion-point south
+ctrl + cmd - k : chunkc tiling::window --use-insertion-point north
+ctrl + cmd - l : chunkc tiling::window --use-insertion-point east
+
+# toggle window fullscreen
+cmd - f : chunkc tiling::window --toggle fullscreen
+
+# toggle window native fullscreen
+shift + cmd - f : chunkc tiling::window --toggle native-fullscreen
+
+# toggle window split type
+cmd - e : chunkc tiling::window --toggle split
+
+# change layout of desktop
+ctrl + shift + cmd - a : chunkc tiling::desktop --layout bsp
+ctrl + shift + cmd - s : chunkc tiling::desktop --layout monocle
+ctrl + shift + cmd - d : chunkc tiling::desktop --layout float
