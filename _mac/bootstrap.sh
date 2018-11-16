@@ -71,6 +71,18 @@ replace_symlink _mac/kitty/kitty.conf .config/kitty/kitty.conf
 echo "Configuring mc"
 replace_symlink _mc .config/mc
 
+
+echo "Configuring chunkwm"
+replace_symlink _mac/chunkwm/.chunkwmrc .chunkwmrc 
+chmod a+x ~/.chunkwmrc
+brew services start chunkwm
+
+
+echo "Configuring skhd"
+replace_symlink _mac/skhd/.skhdrc .skhdrc
+brew services start skhd 
+
+
 echo "Configure macOS"
 
 defaults write -g InitialKeyRepeat -int 15

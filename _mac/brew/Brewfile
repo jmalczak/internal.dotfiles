@@ -1,5 +1,6 @@
 cask_args appdir: "/Applications"
 tap "caskroom/cask"
+tap "crisidev/homebrew-chunkwm"
 brew "ack"
 brew "fasd"
 brew "fzf"
@@ -14,6 +15,8 @@ brew "zsh"
 brew "ranger"
 brew "tig"
 brew "rlue/utils/timer"
+brew "koekeishiya/formulae/skhd"
+brew "chunkwm"
 cask "alfred"
 cask "appcleaner"
 cask "itsycal"
@@ -22,7 +25,6 @@ cask "google-chrome"
 cask "parallels"
 cask "slack"
 cask "spotify"
-cask "iterm2"
 cask "bettertouchtool"
 cask "karabiner-elements"
 cask "visual-studio-code"
@@ -31,12 +33,10 @@ cask "dropbox"
 cask "textmate"
 cask "transmit"
 cask "docker"
-cask "p4merge"
 cask "keyboard-maestro"
 cask "keepassxc"
 mas "Todoist", id: 585829637
 mas "Amphetamine", id: 937984704
-mas "SnippetsLab", id: 1006087419 
 mas "Microsoft Remote Desktop", id: 1295203466
 mas "iMazing HEIC Converter", id: 1292198261 
 mas "iA Writer", id: 775737590

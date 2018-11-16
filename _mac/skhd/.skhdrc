@@ -8,10 +8,10 @@ cmd + shift - l : chunkc tiling::window --focus east
 shift + cmd - 0 : chunkc tiling::desktop --equalize
 
 # move window
-shift + cmd - h : chunkc tiling::window --warp west
-shift + cmd - j : chunkc tiling::window --warp south
-shift + cmd - k : chunkc tiling::window --warp north
-shift + cmd - l : chunkc tiling::window --warp east
+shift + ctrl - h : chunkc tiling::window --warp west
+shift + ctrl - j : chunkc tiling::window --warp south
+shift + ctrl - k : chunkc tiling::window --warp north
+shift + ctrl - l : chunkc tiling::window --warp east
 
 # send window to desktop and follow focus
 alt + cmd - 1 : chunkc tiling::window --send-to-desktop 1; chunkc tiling::desktop --focus 1
