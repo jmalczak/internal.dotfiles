@@ -74,7 +74,7 @@ replace_symlink _mc .config/mc
 
 echo "Configuring ranger"
 create_if_not_exist .config/ranger
-replace_symlink ranger .config/ranger
+replace_symlink _mac/ranger .config/ranger
 
 
 echo "Configuring chunkwm"
