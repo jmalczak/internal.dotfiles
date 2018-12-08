@@ -72,6 +72,11 @@ echo "Configuring mc"
 replace_symlink _mc .config/mc
 
 
+echo "Configuring ranger"
+create_if_not_exist .config/ranger
+replace_symlink ranger .config/ranger
+
+
 echo "Configuring chunkwm"
 replace_symlink _mac/chunkwm/.chunkwmrc .chunkwmrc 
 chmod a+x ~/.chunkwmrc

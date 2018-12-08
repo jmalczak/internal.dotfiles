@@ -59,3 +59,8 @@ fi
 
 echo "Configuring mc"
 replace_symlink mc .config/mc
+
+
+echo "Configuring ranger"
+create_if_not_exist .config/ranger
+replace_symlink ranger .config/ranger
