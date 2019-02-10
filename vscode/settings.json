@@ -36,5 +36,8 @@
     "explorer.confirmDragAndDrop": false,
     "vsicons.dontShowNewVersionMessage": true,
     "typescript.updateImportsOnFileMove.enabled": "always",
-    "editor.formatOnSave": true 
+    "editor.formatOnSave": true,
+    "workbench.activityBar.visible": true,
+    "workbench.statusBar.visible": false,
+    "editor.minimap.enabled": false
 }

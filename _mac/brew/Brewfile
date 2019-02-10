@@ -15,7 +15,6 @@ brew "zsh"
 brew "ranger"
 brew "tig"
 brew "rlue/utils/timer"
-brew "koekeishiya/formulae/skhd"
 brew "chunkwm"
 cask "alfred"
 cask "appcleaner"
@@ -35,7 +34,6 @@ cask "transmit"
 cask "docker"
 cask "keyboard-maestro"
 cask "keepassxc"
-mas "Todoist", id: 585829637
 mas "Amphetamine", id: 937984704
 mas "Microsoft Remote Desktop", id: 1295203466
 mas "iMazing HEIC Converter", id: 1292198261 
