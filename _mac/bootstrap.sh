@@ -63,13 +63,13 @@ echo "Configuring karabiner"
 replace_symlink _mac/karabiner .config/karabiner
 
 
-echo "Configuring kitty"
-create_if_not_exist .config/kitty
-replace_symlink _mac/kitty/kitty.conf .config/kitty/kitty.conf
+#echo "Configuring kitty"
+#create_if_not_exist .config/kitty
+#replace_symlink _mac/kitty/kitty.conf .config/kitty/kitty.conf
 
 
-echo "Configuring mc"
-replace_symlink _mc .config/mc
+#echo "Configuring mc"
+#replace_symlink _mc .config/mc
 
 
 echo "Configuring ranger"
@@ -83,9 +83,9 @@ chmod a+x ~/.chunkwmrc
 brew services start chunkwm
 
 
-echo "Configuring skhd"
-replace_symlink _mac/skhd/.skhdrc .skhdrc
-brew services start skhd 
+#echo "Configuring skhd"
+#replace_symlink _mac/skhd/.skhdrc .skhdrc
+#brew services start skhd 
 
 
 echo "Configure macOS"

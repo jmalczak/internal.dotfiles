@@ -22,7 +22,6 @@ cask "itsycal"
 cask "tunnelblick"
 cask "google-chrome"
 cask "parallels"
-cask "slack"
 cask "spotify"
 cask "bettertouchtool"
 cask "karabiner-elements"
@@ -36,6 +35,4 @@ cask "keyboard-maestro"
 cask "keepassxc"
 mas "Amphetamine", id: 937984704
 mas "Microsoft Remote Desktop", id: 1295203466
-mas "iMazing HEIC Converter", id: 1292198261 
 mas "iA Writer", id: 775737590
-mas "Telegram", id: 747648890 
