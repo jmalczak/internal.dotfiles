@@ -11,9 +11,6 @@
 		<string>/opt/homebrew-cask/Caskroom</string>
 		<string>/System/Library/CoreServices/Applications</string>
 		<string>/System/Library/PreferencePanes</string>
-		<string>/usr/local/Cellar</string>
-		<string>/Volumes/Data</string>
-		<string>/Volumes/Data/software/parallels</string>
 		<string>~/Library/Caches/Metadata</string>
 		<string>~/Library/Mobile Documents</string>
 		<string>~/Library/PreferencePanes</string>

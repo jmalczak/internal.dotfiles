@@ -45,6 +45,8 @@ replace_symlink tmux/.tmux.conf .tmux.conf
 
 
 echo "Configuring vscode"
+create_if_not_exist Library/Application\ Support/Code/
+create_if_not_exist Library/Application\ Support/Code/User/
 replace_symlink vscode/settings.json Library/Application\ Support/Code/User/settings.json
 defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
 
@@ -91,5 +93,5 @@ brew services start chunkwm
 echo "Configure macOS"
 
 defaults write -g InitialKeyRepeat -int 15
-defaults write -g KeyRepeat -int 2
+defaults write -g KeyRepeat -int 2 
 defaults write -g ApplePressAndHoldEnabled -bool false
