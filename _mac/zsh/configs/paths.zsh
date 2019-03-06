@@ -1,3 +1,3 @@
 # Path settings Mac specific
 
-PATH="$PATH:$HOME/.internal.dotfiles/_mac/_bin"
+PATH="$PATH:$HOME/.internal.dotfiles/_mac/bin"

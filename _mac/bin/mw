@@ -1,0 +1,2 @@
+#!/bin/bash
+/usr/bin/osascript -e "try" -e "mount volume \"smb://devboxwin._smb._tcp.local/%5BC%5D%20devboxwin\"" -e "end try"
