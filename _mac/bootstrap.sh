@@ -62,6 +62,9 @@ then
     git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 fi
 
+echo "Configuring ideavim"
+replace_symlink _mac/vim/_vsvimrc _ideavimrc
+
 echo "Configuring karabiner"
 replace_symlink _mac/karabiner .config/karabiner
 
