@@ -64,7 +64,7 @@ fi
 
 
 echo "Configuring ideavim"
-replace_symlink _mac/vim/_vsvimrc _ideavimrc
+replace_symlink vim/_vsvimrc .ideavimrc
 
 
 echo "Configuring karabiner"
