@@ -11,7 +11,7 @@ WORK_TIME=35
 BREAK_TIME=10
 
 SAVE_LOCATION=$TMPDIR/bitbar-promodo
-TOMATO='work'
+TOMATO='👨🏼‍💻'
 
 WORK_TIME_IN_SECONDS=$((WORK_TIME * 60))
 BREAK_TIME_IN_SECONDS=$((BREAK_TIME * 60))
@@ -31,7 +31,6 @@ STATUS=$(echo "$DATA" | cut -d "|" -f2)
 
 function changeStatus {
     echo "$CURRENT_TIME|$1" > "$SAVE_LOCATION";
-    osascript -e "display notification \"$2\" with title \"$TOMATO Pomodoro\" sound name \"$3\"" &> /dev/null
 }
 
 function breakMode {
