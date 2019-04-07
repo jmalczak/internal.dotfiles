@@ -31,6 +31,7 @@ STATUS=$(echo "$DATA" | cut -d "|" -f2)
 
 function changeStatus {
     echo "$CURRENT_TIME|$1" > "$SAVE_LOCATION";
+    osascript -e "display notification \"$2\" with title \"$TOMATO Pomodoro\" sound name \"$3\"" &> /dev/null
 }
 
 function breakMode {
