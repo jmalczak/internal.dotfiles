@@ -33,10 +33,10 @@ cask "transmit"
 cask "docker"
 cask "keyboard-maestro"
 cask "keepassxc"
-cask "typora"
 cask "istat-menus"
 cask "nosqlbooster-for-mongodb"
-cask "moom"
+cask "textexpander"
+cask "daisydisk"
 mas "Amphetamine", id: 937984704
 mas "Microsoft Remote Desktop", id: 1295203466
 mas "iA Writer", id: 775737590
