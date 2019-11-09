@@ -27,12 +27,30 @@ alias gpl="g pull"
 alias gcl="g clean -nd"
 alias gclf="g clean -fd"
 
+function gplall() { 
+    for d in */ ; do
+        cd $d
+        git pull
+        cd ..
+    done
+}
+
 # Tmux
 alias tm="TERM=screen-256color tmux attach -t default || tmux new -s default"
 
 # Paths
+alias ls="exa"
 function cs() { cd "$1" && ls; } 
 function ..() { cd .. && ls; } 
+
+# Cat
+alias cat="bat"
+
+# Find
+alias find="fd"
+
+# Grep
+alias grep="rg"
 
 # Docker
 alias dps='docker ps --format "{{.ID}} :: {{.Names}}"'
