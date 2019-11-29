@@ -36,11 +36,14 @@ cask "textmate"
 cask "transmit"
 cask "docker"
 cask "keyboard-maestro"
-cask "keepassxc"
+cask "bitwarden"
 cask "istat-menus"
 cask "nosqlbooster-for-mongodb"
 cask "textexpander"
 cask "daisydisk"
+cask "dozer"
+cask "lulu"
 mas "Amphetamine", id: 937984704
 mas "Microsoft Remote Desktop", id: 1295203466
 mas "iA Writer", id: 775737590
+mas "Things 3", id: 904280696  
