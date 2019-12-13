@@ -33,6 +33,12 @@ create_if_not_exist .local_configs
 copy_all_files_from_folder_if_not_exists _mac/zsh/configs .local_configs
 
 
+echo "Configuring fish"
+replace_symlink fish .config/fish
+curl -L https://get.oh-my.fish | fish
+omf install fasd
+
+
 echo "Configuring tmux"
 create_if_not_exist .tmux
 create_if_not_exist .tmux/plugins

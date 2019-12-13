@@ -11,6 +11,7 @@ brew "reattach-to-user-namespace"
 brew "tree"
 brew "yarn"
 brew "zsh"
+brew "fish"
 brew "ranger"
 brew "tig"
 brew "exa"
@@ -42,7 +43,8 @@ cask "nosqlbooster-for-mongodb"
 cask "textexpander"
 cask "daisydisk"
 cask "dozer"
-cask "lulu"
+cask "charles"
+cask "little-snitch"
 mas "Amphetamine", id: 937984704
 mas "Microsoft Remote Desktop", id: 1295203466
 mas "iA Writer", id: 775737590

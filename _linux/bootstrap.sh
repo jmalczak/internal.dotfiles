@@ -13,7 +13,7 @@ sudo add-apt-repository -y ppa:neovim-ppa/stable
 sudo add-apt-repository -y ppa:aacebedo/fasd
 
 sudo apt-get update
-sudo apt-get install -y zsh tmux neovim fasd language-pack-pl language-pack-pl-base mc tig ranger
+sudo apt-get install -y zsh fish tmux neovim fasd language-pack-pl language-pack-pl-base mc tig ranger
 
 
 echo "Configuring ssh"
@@ -32,6 +32,10 @@ fi
 
 replace_symlink zsh/.zshrc .zshrc
 copy_all_files_from_folder_if_not_exists _linux/zsh/configs .local_configs
+
+
+echo "Configuring fish"
+replace_symlink fish .config/fish
 
 
 echo "Configuring tmux"
