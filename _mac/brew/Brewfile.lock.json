@@ -2,12 +2,12 @@
   "entries": {
     "tap": {
       "caskroom/cask": {
-        "revision": "90503eb16c93fbf95e5156b5aaccd07f433d7755"
+        "revision": "12f9245e4d3e834f3ac2d37414336e648cd036da"
       }
     },
     "brew": {
       "ack": {
-        "version": "3.2.0",
+        "version": "3.3.1",
         "bottle": false
       },
       "fasd": {
@@ -15,22 +15,22 @@
         "bottle": false
       },
       "fzf": {
-        "version": "0.19.0",
+        "version": "0.20.0",
         "bottle": {
           "cellar": ":any_skip_relocation",
           "prefix": "/usr/local",
           "files": {
             "catalina": {
-              "url": "https://homebrew.bintray.com/bottles/fzf-0.19.0.catalina.bottle.tar.gz",
-              "sha256": "0be169ab230f6ff7b2322ee3d61fa0cd44e04300b688d207b67e910d948af442"
+              "url": "https://homebrew.bintray.com/bottles/fzf-0.20.0.catalina.bottle.tar.gz",
+              "sha256": "0d51962d904b7cd680fd316cc4691b5a562ce1ae77d4dcbfd40006f91c0945d6"
             },
             "mojave": {
-              "url": "https://homebrew.bintray.com/bottles/fzf-0.19.0.mojave.bottle.tar.gz",
-              "sha256": "5b5f429819576c27bab7bb658e3a99ae8043535e19d887fd9eaee954667ee715"
+              "url": "https://homebrew.bintray.com/bottles/fzf-0.20.0.mojave.bottle.tar.gz",
+              "sha256": "c523ba3a6266bb58697e27f45adbf1a01d13560c22a0302dc946d3277da53274"
             },
             "high_sierra": {
-              "url": "https://homebrew.bintray.com/bottles/fzf-0.19.0.high_sierra.bottle.tar.gz",
-              "sha256": "19e9ba86b09129e06530b322f892ba89fb1db3173219ca0228cc0fe2d8281fbc"
+              "url": "https://homebrew.bintray.com/bottles/fzf-0.20.0.high_sierra.bottle.tar.gz",
+              "sha256": "72b692bd10dcc27504657f6eaf40d60f60c290f2b13052d6e6ad08ecc65f9c48"
             }
           }
         }
@@ -240,7 +240,7 @@
         }
       },
       "ranger": {
-        "version": "1.9.2",
+        "version": "1.9.3",
         "bottle": false
       },
       "tig": {
@@ -363,7 +363,7 @@
         }
       },
       "alacritty": {
-        "version": "0.4.0",
+        "version": "0.4.1",
         "options": {
           "args": {
             "appdir": "/Applications"
@@ -523,7 +523,7 @@
         }
       },
       "nosqlbooster-for-mongodb": {
-        "version": "5.2.8",
+        "version": "5.2.9",
         "options": {
           "args": {
             "appdir": "/Applications"
@@ -555,7 +555,7 @@
         }
       },
       "charles": {
-        "version": "4.5.5",
+        "version": "4.5.6",
         "options": {
           "args": {
             "appdir": "/Applications"
@@ -578,7 +578,7 @@
       },
       "Microsoft Remote Desktop": {
         "id": "1295203466",
-        "version": "10.3.6"
+        "version": "10.3.7"
       },
       "iA Writer": {
         "id": "775737590",
@@ -590,9 +590,9 @@
   "system": {
     "macos": {
       "catalina": {
-        "HOMEBREW_VERSION": "2.2.1",
+        "HOMEBREW_VERSION": "2.2.4",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "0160e8cf8ff71bd424fac0588d43aac35afb7a2b",
+        "Homebrew/homebrew-core": "07fcb96b558b7ad18f36a9ba9a90752822fe988e",
         "CLT": "",
         "Xcode": "11.3",
         "macOS": "10.15.2"

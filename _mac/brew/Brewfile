@@ -31,7 +31,6 @@ cask "karabiner-elements"
 cask "visual-studio-code"
 cask "azure-data-studio"
 cask "rider"
-cask "insomnia"
 cask "dropbox"
 cask "textmate"
 cask "transmit"
@@ -42,10 +41,8 @@ cask "istat-menus"
 cask "nosqlbooster-for-mongodb"
 cask "textexpander"
 cask "daisydisk"
-cask "dozer"
 cask "charles"
 cask "little-snitch"
 mas "Amphetamine", id: 937984704
 mas "Microsoft Remote Desktop", id: 1295203466
-mas "iA Writer", id: 775737590
 mas "Things 3", id: 904280696  

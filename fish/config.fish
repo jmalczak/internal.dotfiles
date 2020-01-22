@@ -12,3 +12,7 @@ end
 for file in ~/.config/fish/config/*
     source $file
 end
+
+for file in ~/.config_fish_local/*
+    source $file
+end
