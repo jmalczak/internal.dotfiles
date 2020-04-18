@@ -38,11 +38,27 @@ cask "docker"
 cask "keyboard-maestro"
 cask "bitwarden"
 cask "istat-menus"
-cask "nosqlbooster-for-mongodb"
-cask "textexpander"
 cask "daisydisk"
 cask "charles"
 cask "little-snitch"
+cask "xmind"
+cask "bartender"
+cask "paw"
+cask "qbittorrent"
+cask "gimp"
+cask "iina"
+cask "xnviewmp"
+cask "biscuit"
+cask "fantastical"
+cask "adguard"
+cask "fork"
+cask "moom"
+cask "iterm2"
+cask "double-commander"
 mas "Amphetamine", id: 937984704
 mas "Microsoft Remote Desktop", id: 1295203466
 mas "Things 3", id: 904280696  
+mas "Be Focused Pro - Focus Timer", id: 961632517
+mas "HEIC Converter", id: 1294126402 
+mas "Bear", id: 1091189122 
+mas "Flashcard Hero", id: 650802274 
