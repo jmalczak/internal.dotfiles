@@ -21,18 +21,6 @@ copy_if_not_exists _mac/ssh/config .ssh/config
 chmod 600 ~/.ssh/config
 
 
-echo "Configuring zsh"
-
-if [ ! -d ~/.zgen ]
-then
-    git clone https://github.com/tarjoilija/zgen.git "${HOME}/.zgen"
-fi
-
-replace_symlink zsh/.zshrc .zshrc
-create_if_not_exist .local_configs
-copy_all_files_from_folder_if_not_exists _mac/zsh/configs .local_configs
-
-
 echo "Configuring fish"
 replace_symlink fish .config/fish
 curl -L https://get.oh-my.fish | fish
