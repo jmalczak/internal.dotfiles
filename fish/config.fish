@@ -16,3 +16,4 @@ end
 for file in ~/.config_fish_local/*
     source $file
 end
+clear
