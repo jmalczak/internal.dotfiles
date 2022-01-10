@@ -21,6 +21,7 @@ function vim() {
 # Git
 alias g="git"
 alias gss="g status -s"
+alias gco="g checkout"
 alias gaa="g add :/"
 alias gcm="g commit -n -m"
 alias gps="g push"
