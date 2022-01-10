@@ -1,0 +1,1 @@
+/Users/malczu/.fig/shell/pre.fish

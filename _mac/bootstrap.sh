@@ -21,10 +21,11 @@ copy_if_not_exists _mac/ssh/config .ssh/config
 chmod 600 ~/.ssh/config
 
 
-echo "Configuring fish"
-replace_symlink fish .config/fish
-curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
-omf install fasd
+echo "Configuring zsh"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+replace_symlink zsh/.zshrc .zshrc
+create_if_not_exist .local_configs
+copy_all_files_from_folder_if_not_exists _mac/zsh/configs .local_configs
 
 
 echo "Configuring tmux"

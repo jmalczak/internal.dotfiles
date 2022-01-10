@@ -1,45 +1,12 @@
 # Env Variables
 PATH="$PATH:/usr/local/bin/"
 DIR="$HOME/.internal.dotfiles/zsh"
+export ZSH="$HOME/.oh-my-zsh"
 export TERM="xterm-256color"
 export LC_CTYPE="UTF-8"
 
-# Zprezto additional modules path
-fpath=(
-  ${HOME}/.internal.dotfiles/zsh/zprezto/modules/prompt/functions
-  ${fpath}
-)
-
-# Set up zgen
-source "${HOME}/.zgen/zgen.zsh"
-
-# If the init scipt doesn't exist
-if ! zgen saved; then
-
-  # Specify plugins here
-  zgen prezto
-  zgen prezto '*:*' color 'yes'
-
-  # Load prezto modules
-  zgen prezto environment
-  zgen prezto git
-
-  zgen prezto editor key-bindings 'vi'
-  zgen prezto editor 
-
-  zgen prezto directory 
-  zgen prezto spectrum 
-  zgen prezto utility 
-
-#  zgen prezto tmux:auto-start local 'yes'
-  zgen prezto tmux 
-
-  zgen prezto prompt theme 'malczu'
-  zgen prezto prompt 
-  
-  # Generate the init script from plugins above
-  zgen save
-fi
+ZSH_THEME="robbyrussell"
+source $ZSH/oh-my-zsh.sh
 
 # Include configs
 source "$DIR/configs/fasd.zsh"
