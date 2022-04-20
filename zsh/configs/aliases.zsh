@@ -48,9 +48,6 @@ function ..() { cd .. && ls; }
 # Cat
 alias cat="bat"
 
-# Find
-alias find="fd"
-
 # Grep
 alias grep="rg"
 

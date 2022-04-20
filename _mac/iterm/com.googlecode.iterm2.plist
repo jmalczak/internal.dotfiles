@@ -233,6 +233,8 @@
 	<false/>
 	<key>EnableProxyIcon</key>
 	<false/>
+	<key>HapticFeedbackForEsc</key>
+	<false/>
 	<key>HideMenuBarInFullscreen</key>
 	<false/>
 	<key>HideScrollbar</key>
@@ -947,6 +949,8 @@
 	<true/>
 	<key>SmartPlacement</key>
 	<true/>
+	<key>SoundForEsc</key>
+	<false/>
 	<key>SplitPaneDimmingAmount</key>
 	<real>0.37042768429487183</real>
 	<key>TabStyle</key>
@@ -958,6 +962,8 @@
 	<key>TerminalVMargin</key>
 	<integer>1</integer>
 	<key>UseBorder</key>
+	<false/>
+	<key>VisualIndicatorForEsc</key>
 	<false/>
 	<key>Window Arrangements</key>
 	<dict/>

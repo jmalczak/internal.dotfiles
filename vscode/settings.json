@@ -52,5 +52,9 @@
     "**\/.vscode" : true
   },
   "workbench.activityBar.visible" : true,
-  "workbench.startupEditor" : "newUntitledFile"
+  "workbench.startupEditor": "newUntitledFile",
+  "terminal.integrated.env.osx": {
+    "FIG_NEW_SESSION": "1"
+  },
+  "monkeyC.developerKeyPath": "/Users/malczu/Dropbox/backup/garmin/developer_key"
 }
