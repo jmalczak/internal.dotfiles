@@ -56,5 +56,6 @@
   "terminal.integrated.env.osx": {
     "FIG_NEW_SESSION": "1"
   },
-  "monkeyC.developerKeyPath": "/Users/malczu/Dropbox/backup/garmin/developer_key"
+  "monkeyC.developerKeyPath": "/Users/malczu/Dropbox/backup/garmin/developer_key",
+  "security.workspace.trust.untrustedFiles": "open"
 }

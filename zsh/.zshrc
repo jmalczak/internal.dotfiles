@@ -28,3 +28,4 @@ then
 fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
