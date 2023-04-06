@@ -1,0 +1,61 @@
+# change window focus within space
+ctrl - j : yabai -m window --focus south
+ctrl - k : yabai -m window --focus north
+ctrl - h : yabai -m window --focus west
+ctrl - l : yabai -m window --focus east
+
+#change focus between external displays (left and right)
+cmd + ctrl - j: yabai -m display --focus south
+cmd + ctrl - k: yabai -m display --focus north
+cmd + ctrl - h: yabai -m display --focus west
+cmd + ctrl - l: yabai -m display --focus easy
+
+# rotate layout clockwise
+shift + ctrl - r : yabai -m space --rotate 270
+
+# flip along y-axis
+shift + ctrl - y : yabai -m space --mirror y-axis
+
+# flip along x-axis
+shift + ctrl - x : yabai -m space --mirror x-axis
+
+# toggle window float
+shift + ctrl - t : yabai -m window --toggle float --grid 4:4:1:1:2:2
+
+# maximize a window
+shift + ctrl - m : yabai -m window --toggle zoom-fullscreen
+
+# balance out tree of windows (resize to occupy same area)
+shift + ctrl - e : yabai -m space --balance
+
+# swap windows
+shift + ctrl - j : yabai -m window --swap south
+shift + ctrl - k : yabai -m window --swap north
+shift + ctrl - h : yabai -m window --swap west
+shift + ctrl - l : yabai -m window --swap east
+
+# move window and split
+ctrl + cmd - j : yabai -m window --warp south
+ctrl + cmd - k : yabai -m window --warp north
+ctrl + cmd - h : yabai -m window --warp west
+ctrl + cmd - l : yabai -m window --warp east
+
+# move window to display left and right
+ctrl + cmd + shift - j : yabai -m window --display south; yabai -m display --focus south;
+ctrl + cmd + shift - k : yabai -m window --display north; yabai -m display --focus north;
+ctrl + cmd + shift - h : yabai -m window --display west; yabai -m display --focus west;
+ctrl + cmd + shift - l : yabai -m window --display east; yabai -m display --focus east;
+
+#move window to prev and next space
+shift + ctrl - p : yabai -m window --space prev;
+shift + ctrl - n : yabai -m window --space next;
+
+# move window to space #
+shift + ctrl - 1 : yabai -m window --space 1;
+shift + ctrl - 2 : yabai -m window --space 2;
+shift + ctrl - q : yabai -m window --space 3;
+shift + ctrl - w : yabai -m window --space 4;
+
+# layouts
+shift + ctrl - b : yabai -m config layout bsp
+shift + ctrl - a : yabai -m config layout stack

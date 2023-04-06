@@ -1,0 +1,33 @@
+;; edn spec https://github.com/edn-format/edn
+{;;;; define things
+ ;; define devices
+
+:simlayers {
+             :tab-mode {:key :tab}
+           }
+:main [
+
+       {
+         :des "Caps Lock to esc if pressed alone or hyper if hold",
+         :rules [[:caps_lock :!CTOleft_shift nil {:alone :escape}]]
+       },
+       {
+         :des "Caps Lock to function",
+         :rules [
+                 [ :!CTOS1 :f1],
+                 [ :!CTOS2 :f2],
+                 [ :!CTOS3 :f3],
+                 [ :!CTOS4 :f4],
+                 [ :!CTOS5 :f5],
+                 [ :!CTOS6 :f6],
+                 [ :!CTOS7 :f7],
+                 [ :!CTOS8 :f8],
+                 [ :!CTOS9 :f9],
+                 [ :!CTOS0 :f10],
+                 [ :!CTOShyphen :f11],
+                 [ :!CTOSequal_sign :f12]
+                ]
+       }
+
+      ]
+}
