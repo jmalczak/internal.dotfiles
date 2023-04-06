@@ -148,13 +148,13 @@
 				<key>keyword</key>
 				<string>{var:dnd_keyword}</string>
 				<key>queuedelaycustom</key>
-				<integer>1</integer>
+				<integer>3</integer>
 				<key>queuedelayimmediatelyinitially</key>
-				<false/>
+				<true/>
 				<key>queuedelaymode</key>
 				<integer>0</integer>
 				<key>queuemode</key>
-				<integer>1</integer>
+				<integer>2</integer>
 				<key>runningsubtext</key>
 				<string>Getting status…</string>
 				<key>script</key>
@@ -176,7 +176,7 @@ function run(argv) {
     // Focus enabled
     if (currentFocus.length &gt; 0) {
       return sfItem({
-        title: `Turn off ${currentFocus} Focus`,
+        title: `Turn Off ${currentFocus} Focus`,
         arg: "off"
       })
     }
@@ -194,7 +194,7 @@ function run(argv) {
   // Any given value must start with a digit
   if (givenTimeout === undefined || !givenTimeout.match(/^\d/)) {
     return sfItem({
-      title: "Turn on Do Not Distub",
+      title: "Turn On Do Not Distub",
       arg: "on",
       icon: { path: "icon_alt.png" }
     })
@@ -207,9 +207,14 @@ function run(argv) {
 
   const plurality = timeoutMinutes === 1 ? "minute" : "minutes"
 
+  // Calculate clock
+  const date = new Date() // Current time
+  date.setMinutes(date.getMinutes() + timeoutMinutes)
+  const clock = date.toTimeString().slice(0, 5)
+
   return sfItem({
-    title: "Turn on Do Not Disturb",
-    subtitle: `Enable for ${timeoutMinutes} ${plurality}`,
+    title: `Turn On Do Not Disturb for ${timeoutMinutes} ${plurality}`,
+    subtitle: `Enable until ${clock}`,
     arg: timeoutMinutes,
     icon: { path: "icon_alt.png" }
   })
@@ -255,7 +260,7 @@ function run(argv) {
 	<key>readme</key>
 	<string>## Usage
 
-Toggle your Focus Mode via the Do Not Disturb Keyword (default: `dnd`). Optionally give a number when enabling to activate it for that amount of minutes, or hours if an `h` is appended.
+Toggle your Focus Mode via the `dnd` keyword. Optionally give a number when enabling to activate it for that amount of minutes, or hours if an `h` is appended.
 
 ![Alfred search for dnd, turn on](images/about/dnd_on.png)
 
@@ -325,7 +330,7 @@ Toggle your Focus Mode via the Do Not Disturb Keyword (default: `dnd`). Optional
 		</dict>
 	</array>
 	<key>version</key>
-	<string>2023.1</string>
+	<string>2023.4</string>
 	<key>webaddress</key>
 	<string>https://github.com/vitorgalvao/calm-notifications-workflow/</string>
 </dict>

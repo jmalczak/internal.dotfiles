@@ -46,7 +46,7 @@ or use ChatFred as a fallback search in Alfred:
 
 ![Screenshot](workflow/assets/images/screenshot8.png)
 
-The results will always be shown in [Large Type](https://www.alfredapp.com/help/features/large-type/). Check out the [workflow's configuration](https://www.alfredapp.com/help/workflows/user-configuration/) for more options (e.g. *Always copy reply to clipboard*).
+The results will always be shown in [Large Type](https://www.alfredapp.com/help/features/large-type/). Check out the [workflow's configuration](https://www.alfredapp.com/help/workflows/user-configuration/) for more options (e.g. *Always copy reply to clipboard* or *Paste response to frontmost app*).
 
 #### **Text transformation** ⚙️
 This feature allows you to easily let ChatGPT transform your text using a pre-defined prompt. Just replace the default *ChatGPT transformation prompt* in the workflow's configuration with your own prompt. Use either the [Send to ChatGPT 💬 Universal Actions](#universal-action--combined-prompts-%EF%B8%8F) (option: <kbd>⇧</kbd>) to pass the highlighted text to ChatGPT using your transformation prompt. Or configure a hotkey to use the clipboard content.
@@ -202,13 +202,15 @@ You can tweak the workflow to your liking. The following parameters are availabl
 - **InstructGPT model**: Following models are available: `Ada`, `Babbage`, `Curie`, `Davinci`. Default: `Davinci`. ([Read more](https://platform.openai.com/docs/models/overview))
 - **ChatGPT model**: Following models are available: `ChatGPT-3.5`, `GPT-4` ([limited beta](https://openai.com/waitlist/gpt-4-api)), `GPT-4 (32k)` ([limited beta](https://openai.com/waitlist/gpt-4-api)). Default: `ChatGPT-3.5`. ([Read more](https://platform.openai.com/docs/models/overview))
 - **Temperature**: The temperature determines how greedy the generative model is (between `0` and `2`). If the temperature is high, the model can output words other than the highest probability with a fairly high probability. The generated text will be more diverse, but there is a higher probability of grammar errors and the generation of nonsense . Default: `0`.
-- **Maximum tokens**: The maximum number of tokens to generate in the completion. Default (InstructGPT): `50`. Default (ChatGPT): `4096`.
+- **ChatGPT maximum tokens**: The maximum number of tokens to generated. Default: `4096`.
+- **InstructGPT maximum tokens**: The maximum number of tokens to generated. Default: `50`.
 - **Top-p**: Top-p sampling selects from the smallest possible set of words whose cumulative probability exceeds probability p. In this way, the number of words in the set can be dynamically increased and decreased according to the nearest word probability distribution. Default: `1`.
 - **Frequency penalty**: A value between `-2.0` and `2.0`. The frequency penalty parameter controls the model’s tendency to repeat predictions. Default: `0`.
 - **Presence penalty**: A Value between `-2.0` and `2.0`. The presence penalty parameter encourages the model to make novel predictions. Default: `0`.
 - **Always read out reply**: If enabled, ChatFred will read out all replies automatically. Default: `off`.
 - **Always save conversation to file**: If enabled, all your request and ChatFred's replies will automatically be saved to a file (`{File directory}/ChatFred.txt`). Only available for InstructGPT. Default: `off`.
 - **File directory**: Custom directory where the 'ChatFred.txt' should be stored. Default to the user's home directory (`~/`).
+- **Paste response to frontmost app**: If enabled, the response will be pasted to the frontmost app. If this feature is switched on, the response will not be shown in [Large Type](https://www.alfredapp.com/help/features/large-type/). Default: `off`.
 - **Always copy to clipboard**: If enabled, all of ChatFred's replies will be copied to the clipboard automatically. Default: `on`.
 - **Image size**: The size of the by DALL·E 2 generated image. Default: `512x512`.
 - **Show notifications**: Shows all notifications provided by the workflow. For this, to work System notifications must be activated for Alfred. Default: `on`.
@@ -217,6 +219,9 @@ You can tweak the workflow to your liking. The following parameters are availabl
 ## Troubleshooting ⛑️
 ### General 🙀
 When having trouble it is always a good idea to download the [newest release version 🌈](https://github.com/chrislemke/ChatFred/releases). Before you install it, remove the old workflow and its files (`~/Library/Application Support/Alfred/Workflow Data/some-long-identifier/`).
+
+### Remove history 🕰️
+Sometimes it makes sense to delete the history of your conversation with ChatGPT. Simply use the `forget me` command for this.
 
 Also, make sure that you have some Python version installed. You can check this by running `python --version` in the terminal. If you don't have Python installed, you can download it as a [Homebrew package](https://brew.sh): `brew install python`.
 
