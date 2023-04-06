@@ -1,1 +1,3 @@
 .DS_Store
+_mac/alfred/*
+_mac/alfred/Alfred.alfredpreferences/**
