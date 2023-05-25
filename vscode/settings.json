@@ -1,61 +1,64 @@
 {
-  "explorer.confirmDelete" : false,
-  "workbench.colorTheme" : "Default Dark+",
-  "editor.accessibilitySupport" : "off",
-  "extensions.ignoreRecommendations" : true,
-  "telemetry.telemetryLevel" : "off",
-  "typescript.updateImportsOnFileMove.enabled" : "always",
-  "vim.normalModeKeyBindings" : [
+  "explorer.confirmDelete": false,
+  "workbench.colorTheme": "Default Dark+",
+  "editor.accessibilitySupport": "off",
+  "extensions.ignoreRecommendations": true,
+  "telemetry.telemetryLevel": "off",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "vim.normalModeKeyBindings": [
     {
-      "after" : [
+      "after": [
         ":"
       ],
-      "before" : [
+      "before": [
         ";"
       ]
     },
     {
-      "after" : [
+      "after": [
         ";"
       ],
-      "before" : [
+      "before": [
         ":"
       ]
     }
   ],
-  "window.zoomLevel" : 0,
-  "files.autoSave" : "afterDelay",
-  "editor.minimap.enabled" : false,
-  "explorer.confirmDragAndDrop" : false,
-  "editor.formatOnSave" : true,
-  "vim.insertModeKeyBindings" : [
+  "window.zoomLevel": 0,
+  "files.autoSave": "afterDelay",
+  "editor.minimap.enabled": false,
+  "explorer.confirmDragAndDrop": false,
+  "editor.formatOnSave": true,
+  "vim.insertModeKeyBindings": [
     {
-      "after" : [
+      "after": [
         "<Esc>"
       ],
-      "before" : [
+      "before": [
         "j",
         "k"
       ]
     }
   ],
-  "workbench.statusBar.visible" : false,
-  "files.exclude" : {
-    "**\/.hg" : true,
-    "**\/CVS" : true,
-    "**\/.DS_Store" : true,
-    "**\/bin" : true,
-    "**\/.git" : true,
-    "**\/obj" : true,
-    "**\/.svn" : true,
-    "**\/node_modules" : true,
-    "**\/.vscode" : true
+  "workbench.statusBar.visible": false,
+  "files.exclude": {
+    "**\/.hg": true,
+    "**\/CVS": true,
+    "**\/.DS_Store": true,
+    "**\/bin": true,
+    "**\/.git": true,
+    "**\/obj": true,
+    "**\/.svn": true,
+    "**\/node_modules": true,
+    "**\/.vscode": true
   },
-  "workbench.activityBar.visible" : true,
+  "workbench.activityBar.visible": true,
   "workbench.startupEditor": "newUntitledFile",
   "terminal.integrated.env.osx": {
     "FIG_NEW_SESSION": "1"
   },
   "monkeyC.developerKeyPath": "/Users/malczu/Dropbox/backup/garmin/developer_key",
-  "security.workspace.trust.untrustedFiles": "open"
+  "security.workspace.trust.untrustedFiles": "open",
+  "[clojure]": {
+    "editor.defaultFormatter": "pedrorgirardi.vscode-cljfmt"
+  }
 }

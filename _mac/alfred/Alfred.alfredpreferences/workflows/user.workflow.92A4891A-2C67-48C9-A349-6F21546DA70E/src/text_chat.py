@@ -1,10 +1,12 @@
-"""This module contains the chatGPT API."""
+"""This module contains the ChatGPT API."""
 
 import csv
+import functools
 import os
 import sys
+import time
 import uuid
-from typing import List, Optional, Tuple
+from typing import Dict, List, Optional, Tuple
 
 from aliases_manager import prompt_for_alias
 from caching_manager import read_from_cache, write_to_cache
@@ -21,6 +23,8 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "libs"))
 import openai
 
 openai.api_key = os.getenv("api_key")
+if os.getenv("custom_api_url"):
+    openai.api_base = os.getenv("custom_api_url")
 
 __model = os.getenv("chat_gpt_model") or "gpt-3.5-turbo"
 __history_length = int(os.getenv("history_length") or 4)
@@ -36,19 +40,62 @@ __jailbreak_prompt = os.getenv("jailbreak_prompt")
 __unlocked = int(os.getenv("unlocked") or 0)
 
 
+def time_it(func):
+    """A decorator function that times the execution of a given function.
+
+    Args:
+        func: The function to be timed.
+
+    Returns:
+        A wrapper function that times the execution of the input function.
+    """
+
+    @functools.wraps(func)
+    def timeit_wrapper(*args):
+        start_time = time.perf_counter()
+        result = func(*args)
+        end_time = time.perf_counter()
+        total_time = end_time - start_time
+        print(
+            f"Function: {func.__name__} took {total_time:.4f} seconds\n",
+            file=sys.stderr,
+        )
+        return result
+
+    return timeit_wrapper
+
+
 def get_query() -> str:
-    """Join the arguments into a query string."""
+    """Returns a string of all command line arguments passed to the script.
+
+    Returns:
+        str: A string of all command line arguments passed to the script.
+    """
     return " ".join(sys.argv[1:])
 
 
 def stdout_write(output_string: str) -> None:
-    """Writes the response to stdout."""
+    """Writes the given string to the standard output.
+
+    Args:
+        output_string (str): The string to be written to the standard output.
+
+    Returns:
+        None
+    """
     output_string = "..." if output_string == "" else output_string
     sys.stdout.write(output_string)
 
 
 def exit_on_error() -> None:
-    """Checks the environment variables for invalid values."""
+    """Exits the program and shows some message if there is an error.
+
+    Args:
+        None
+
+    Returns:
+        None
+    """
     error = env_value_error_if_needed(
         __temperature,
         __model,
@@ -61,7 +108,15 @@ def exit_on_error() -> None:
         sys.exit(0)
 
 
+@time_it
 def read_from_log() -> List[Tuple[str, str]]:
+    """Reads the last __history_length entries from the log file.
+
+    Returns:
+        List[Tuple[str, str]]: A list of tuples containing the last __history_length entries from the log file.
+            Each tuple contains two strings: the first is the timestamp and the second is the log message.
+            If the log file does not exist, returns a list with one empty tuple.
+    """
     if os.path.isfile(__log_file_path) is False:
         return [("", "")]
 
@@ -76,14 +131,22 @@ def read_from_log() -> List[Tuple[str, str]]:
     return history[-__history_length:]
 
 
+@time_it
 def write_to_log(
     user_input: str, assistant_output: str, jailbreak_prompt: Optional[str] = None
 ) -> None:
-    """Writes the user input and the assistant output to the log file."""
+    """Writes user input and assistant output to a log file.
 
+    Args:
+        user_input (str): The user input to be logged.
+        assistant_output (str): The assistant output to be logged.
+        jailbreak_prompt (Optional[str]): A prompt to be logged if the user attempts to jailbreak the system. Defaults to None.
+
+    Returns:
+        None
+    """
     if not os.path.exists(__workflow_data_path):
         os.makedirs(__workflow_data_path)
-
     with open(__log_file_path, "a+") as csv_file:
         csv.register_dialect("custom", delimiter=" ", skipinitialspace=True)
         writer = csv.writer(csv_file, dialect="custom")
@@ -100,8 +163,15 @@ def remove_log_file() -> None:
         os.remove(__log_file_path)
 
 
-def intercept_custom_prompts(prompt: str):
-    """Intercepts custom queries."""
+def intercept_custom_prompts(prompt: str) -> None:
+    """Intercepts custom queries.
+
+    Args:
+        prompt (str): The prompt to intercept.
+
+    Returns:
+        None
+    """
     last_request_successful = read_from_cache("last_chat_request_successful")
     if prompt in error_prompts and not last_request_successful:
         stdout_write(
@@ -116,8 +186,17 @@ def intercept_custom_prompts(prompt: str):
         sys.exit(0)
 
 
-def create_message(prompt: str):
-    """Creates the messages for the OpenAI API request."""
+@time_it
+def create_message(prompt: str) -> List[Dict[str, str]]:
+    """Creates a message to be sent to the model.
+
+    Args:
+        prompt (str): The prompt to be included in the message.
+
+    Returns:
+        List[Dict[str, str]]: A list of dictionaries representing the message,
+            with each dictionary containing the role and content of the message.
+    """
     transformation_pre_prompt = """You are a helpful assistant who interprets every input as raw
     text unless instructed otherwise. Your answers do not include a description unless prompted to do so.
     Also drop any "`" characters from the your response."""
@@ -146,6 +225,7 @@ def create_message(prompt: str):
     return messages
 
 
+@time_it
 def make_chat_request(
     prompt: str,
     temperature: float,
@@ -154,9 +234,20 @@ def make_chat_request(
     frequency_penalty: float,
     presence_penalty: float,
 ) -> Tuple[str, str]:
-    """Makes a request to the OpenAI API and returns the prompt and the
-    response."""
+    """Sends a chat request to OpenAI's GTP-3 model and returns the prompt and
+    response as a tuple.
 
+    Args:
+        prompt (str): The prompt to send to the model.
+        temperature (float): Controls the "creativity" of the response. Higher values result in more diverse responses.
+        max_tokens (Optional[int]): The maximum number of tokens (words) in the response.
+        top_p (int): Controls the "quality" of the response. Higher values result in more coherent responses.
+        frequency_penalty (float): Controls the model's tendency to repeat itself.
+        presence_penalty (float): Controls the model's tendency to stay on topic.
+
+    Returns:
+        Tuple[str, str]: A tuple containing the prompt and the response from the model.
+    """
     intercept_custom_prompts(prompt)
     prompt = prompt_for_alias(prompt)
     messages = create_message(prompt)

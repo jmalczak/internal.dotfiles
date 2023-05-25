@@ -11,24 +11,31 @@
 **[Alfred workflow](https://www.alfredapp.com/workflows/) using [ChatGPT](https://chat.openai.com/chat), [DALL·E 2](https://openai.com/product/dall-e-2) and other models for chatting, image generation and more.**
 
 ## Table of contents 📚
-- [Setup](#setup-)
-- [Usage](#usage-)
-    - [Talk to ChatGPT](#talk-to-chatgpt-)
-        - [Text transformation](#text-transformation-%EF%B8%8F)
-        - [Universal action & combined prompts](#universal-action--combined-prompts-%EF%B8%8F)
-        - [Aliases](#aliases-%EF%B8%8F)
-        - [Voice to ChatGPT](#voice-to-chatgpt-%EF%B8%8F)
-        - [Jailbreak](#jailbreak-)
-        - [ChatFred_ChatGPT.csv](#chatfred_chatgptcsv-)
-    - [Text generation with InstructGPT](#text-generation-with-instructgpt-)
-        - [Options](#options-)
-        - [Save conversations to file](#save-conversations-to-file-)
-    - [Image generation by DALL·E 2](#image-generation-by-dalle-2-%EF%B8%8F)
-- [Configure the workflow (optional)](#configure-the-workflow-optional-)
-- [Troubleshooting](#troubleshooting-%EF%B8%8F)
-- [Beta testing](#beta-testing-)
-- [Contributing](#contributing-)
-- [Safety best practices](#safety-best-practices-%EF%B8%8F)
+- [ChatFred](#chatfred)
+  - [Table of contents 📚](#table-of-contents-)
+  - [Setup 🧰](#setup-)
+  - [Usage 🧑‍💻](#usage-)
+    - [Talk to ChatGPT 💬](#talk-to-chatgpt-)
+      - [Text transformation ⚙️](#text-transformation-️)
+      - [Universal action \& combined prompts ➡️](#universal-action--combined-prompts-️)
+      - [Aliases ⌨️](#aliases-️)
+      - [Voice to ChatGPT 🗣️](#voice-to-chatgpt-️)
+      - [Jailbreak 🔓](#jailbreak-)
+      - [`ChatFred_ChatGPT.csv` 📄](#chatfred_chatgptcsv-)
+    - [Text generation with InstructGPT 🤖](#text-generation-with-instructgpt-)
+      - [Options 🤗](#options-)
+      - [Save conversations to file 📝](#save-conversations-to-file-)
+    - [Image generation by DALL·E 2 🖼️](#image-generation-by-dalle-2-️)
+  - [Configure the workflow (optional) 🦾](#configure-the-workflow-optional-)
+  - [Troubleshooting ⛑️](#troubleshooting-️)
+    - [General 🙀](#general-)
+    - [Remove history 🕰️](#remove-history-️)
+    - [Install Python 🐍](#install-python-)
+    - [Error messages 🚨](#error-messages-)
+    - [Open an issue 🕵️](#open-an-issue-️)
+  - [Beta testing 🧪](#beta-testing-)
+  - [Contributing 🤝](#contributing-)
+  - [Safety best practices 🛡️](#safety-best-practices-️)
 
 ## Setup 🧰
 [⤓ Install on the Alfred Gallery](https://alfred.app/workflows/chrislemke/chatfred/) or download it over [GitHub](https://github.com/chrislemke/ChatFred/releases) and add your OpenAI API key. If you have used ChatGPT or DALL·E 2, you already have an OpenAI account. Otherwise, you can [sign up here](https://beta.openai.com/signup) - You will receive [$5 in free credit](https://openai.com/api/pricing/), no payment data is required. Afterwards you can [create your API key](https://beta.openai.com/account/api-keys).
@@ -45,8 +52,21 @@ or use ChatFred as a fallback search in Alfred:
 ![Screenshot](workflow/assets/images/screenshot7.png)
 
 ![Screenshot](workflow/assets/images/screenshot8.png)
+The results will always be shown in [Large Type](https://www.alfredapp.com/help/features/large-type/). Check out the workflow's configuration for more options (e.g. *Always copy reply to clipboard*).
 
-The results will always be shown in [Large Type](https://www.alfredapp.com/help/features/large-type/). Check out the [workflow's configuration](https://www.alfredapp.com/help/workflows/user-configuration/) for more options (e.g. *Always copy reply to clipboard* or *Paste response to frontmost app*).
+ChatFred can also automatically paste ChatGPT's response directly into the frontmost app. Just switch on the *Paste response to frontmost app* in the [workflow's configuration](https://www.alfredapp.com/help/workflows/user-configuration/) or use the <kbd>⌘</kbd> <kbd>⌥</kbd> option.
+
+In this example we use ChatGPT to automatically add a docstring to a Python function. For this we put the following prompt into the workflow's configuration (*ChatGPT transformation prompt*):
+```
+Return this Python function including the Google style Python docstrings.
+The response should be in plain text and should only contain the function
+itself. Don't put the code is a code block.
+```
+Now we can use Alfred's [Text Action](https://www.alfredapp.com/universal-actions/) and the [text transformation](#text-transformation-%EF%B8%8F) feature (<kbd>fn</kbd> option)  to let ChatGPT automatically add a docstring to a Python function:
+
+![Screenshot](chatgpt_text_transformation.gif)
+
+Check out [this Python script](https://github.com/chrislemke/ChatFred/blob/main/workflow/src/text_chat.py). All docstrings where automatically added by ChatGPT.
 
 #### **Text transformation** ⚙️
 This feature allows you to easily let ChatGPT transform your text using a pre-defined prompt. Just replace the default *ChatGPT transformation prompt* in the workflow's configuration with your own prompt. Use either the [Send to ChatGPT 💬 Universal Actions](#universal-action--combined-prompts-%EF%B8%8F) (option: <kbd>⇧</kbd>) to pass the highlighted text to ChatGPT using your transformation prompt. Or configure a hotkey to use the clipboard content.
@@ -207,10 +227,11 @@ You can tweak the workflow to your liking. The following parameters are availabl
 - **Top-p**: Top-p sampling selects from the smallest possible set of words whose cumulative probability exceeds probability p. In this way, the number of words in the set can be dynamically increased and decreased according to the nearest word probability distribution. Default: `1`.
 - **Frequency penalty**: A value between `-2.0` and `2.0`. The frequency penalty parameter controls the model’s tendency to repeat predictions. Default: `0`.
 - **Presence penalty**: A Value between `-2.0` and `2.0`. The presence penalty parameter encourages the model to make novel predictions. Default: `0`.
+- **Custom API URL**: Custom OpenAI API Url. e.g. `https://closeai.deno.dev/v1`
 - **Always read out reply**: If enabled, ChatFred will read out all replies automatically. Default: `off`.
 - **Always save conversation to file**: If enabled, all your request and ChatFred's replies will automatically be saved to a file (`{File directory}/ChatFred.txt`). Only available for InstructGPT. Default: `off`.
 - **File directory**: Custom directory where the 'ChatFred.txt' should be stored. Default to the user's home directory (`~/`).
-- **Paste response to frontmost app**: If enabled, the response will be pasted to the frontmost app. If this feature is switched on, the response will not be shown in [Large Type](https://www.alfredapp.com/help/features/large-type/). Default: `off`.
+- **Paste response to frontmost app**: If enabled, the response will be pasted to the frontmost app. If this feature is switched on, the response will not be shown in [Large Type](https://www.alfredapp.com/help/features/large-type/). Alternatively you can also use the option <kbd>⌘</kbd> <kbd>⌥</kbd> when sending the request to ChatGPT.  Default: `off`.
 - **Always copy to clipboard**: If enabled, all of ChatFred's replies will be copied to the clipboard automatically. Default: `on`.
 - **Image size**: The size of the by DALL·E 2 generated image. Default: `512x512`.
 - **Show notifications**: Shows all notifications provided by the workflow. For this, to work System notifications must be activated for Alfred. Default: `on`.
@@ -223,6 +244,7 @@ When having trouble it is always a good idea to download the [newest release ver
 ### Remove history 🕰️
 Sometimes it makes sense to delete the history of your conversation with ChatGPT. Simply use the `forget me` command for this.
 
+### Install Python 🐍
 Also, make sure that you have some Python version installed. You can check this by running `python --version` in the terminal. If you don't have Python installed, you can download it as a [Homebrew package](https://brew.sh): `brew install python`.
 
 ### Error messages 🚨

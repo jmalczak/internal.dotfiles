@@ -2,32 +2,40 @@
 {;;;; define things
  ;; define devices
 
-:simlayers {
-             :tab-mode {:key :tab}
-           }
-:main [
+ :templates {:alfred "osascript -e 'tell application id \"com.runningwithcrayons.Alfred\" to run trigger \"%s\" in workflow \"%s\" with argument \"%s\"'"
+             :km "osascript -e 'tell application \"Keyboard Maestro Engine\" to do script \"%s\"'"
+             :open "open -a \"%s\""}
+ :simlayers {:a-mode {:key :a}}
+ :main [
+        ;{:des "Launcher",
+         ;:rules [[:1 ["launcher-mode" 1] nil {:afterup ["launcher-mode" 0] :alone :1}],
+                 ;[:r [:open "Rider"] ["launcher-mode" 1]],
+                 ;[:t [:open "Microsoft Teams"] ["launcher-mode" 1]],
+                 ;[:k [:open "Kitty"] ["launcher-mode" 1]],
+                 ;[:s [:open "Safari"] ["launcher-mode" 1]],
+                 ;[:c [:open "Google Chrome"] ["launcher-mode" 1]],
+                 ;[:e [:open "Microsoft Edge Dev"] ["launcher-mode" 1]],
+                 ;[:o [:open "Spotify"] ["launcher-mode" 1]],
+                 ;[:h [:open "Things3"] ["launcher-mode" 1]]
+                 ;]},
+        {:des "Caps Lock to esc if pressed alone or hyper if hold",
+         :rules [[:#C#T#O#Scaps_lock :!CTOleft_shift nil {:alone :escape}]]},
+        {:des "Esc to fn if hold",
+         :rules [[:escape :fn nil {:alone :escape}]]},
+        {:des "Caps Lock to function",
+         :rules [[:!C!T!O!S1 :f1],
+                 [:!C!T!O!S2 :f2],
+                 [:!C!T!O!S3 :f3],
+                 [:!C!T!O!S4 :f4],
+                 [:!C!T!O!S5 :f5],
+                 [:!C!T!O!S6 :f6],
+                 [:!C!T!O!S7 :f7],
+                 [:!C!T!O!S8 :f8],
+                 [:!C!T!O!S9 :f9],
+                 [:!C!T!O!S0 :f10],
+                 [:!C!T!O!Shyphen :f11],
+                 [:!C!T!O!Sequal_sign :f12]]}
 
-       {
-         :des "Caps Lock to esc if pressed alone or hyper if hold",
-         :rules [[:caps_lock :!CTOleft_shift nil {:alone :escape}]]
-       },
-       {
-         :des "Caps Lock to function",
-         :rules [
-                 [ :!CTOS1 :f1],
-                 [ :!CTOS2 :f2],
-                 [ :!CTOS3 :f3],
-                 [ :!CTOS4 :f4],
-                 [ :!CTOS5 :f5],
-                 [ :!CTOS6 :f6],
-                 [ :!CTOS7 :f7],
-                 [ :!CTOS8 :f8],
-                 [ :!CTOS9 :f9],
-                 [ :!CTOS0 :f10],
-                 [ :!CTOShyphen :f11],
-                 [ :!CTOSequal_sign :f12]
-                ]
-       }
-
-      ]
-}
+        {:des "Caps Lock to page down up",
+         :rules [[:!C!T!O!up_arrow :page_up],
+                 [:!C!T!O!down_arrow :page_down]]}]}

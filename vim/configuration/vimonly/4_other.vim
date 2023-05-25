@@ -25,3 +25,10 @@ set noshowmatch
 
 " Fix Macos clipboard integration
 set clipboard=unnamed
+
+" Enable folding
+set foldmethod=indent
+set foldlevel=99
+
+" disable bell
+set noerrorbells
