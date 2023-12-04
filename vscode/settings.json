@@ -1,6 +1,5 @@
 {
   "explorer.confirmDelete": false,
-  "workbench.colorTheme": "Default Dark+",
   "editor.accessibilitySupport": "off",
   "extensions.ignoreRecommendations": true,
   "telemetry.telemetryLevel": "off",
@@ -23,11 +22,9 @@
       ]
     }
   ],
-  "window.zoomLevel": 0,
   "files.autoSave": "afterDelay",
   "editor.minimap.enabled": false,
   "explorer.confirmDragAndDrop": false,
-  "editor.formatOnSave": true,
   "vim.insertModeKeyBindings": [
     {
       "after": [
@@ -51,7 +48,6 @@
     "**\/node_modules": true,
     "**\/.vscode": true
   },
-  "workbench.activityBar.visible": true,
   "workbench.startupEditor": "newUntitledFile",
   "terminal.integrated.env.osx": {
     "FIG_NEW_SESSION": "1"

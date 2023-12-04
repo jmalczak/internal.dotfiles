@@ -33,20 +33,6 @@
           "type" : "basic"
         } ]
       }, {
-        "description" : "Esc to fn if hold",
-        "manipulators" : [ {
-          "to_if_alone" : [ {
-            "key_code" : "escape"
-          } ],
-          "from" : {
-            "key_code" : "escape"
-          },
-          "to" : [ {
-            "key_code" : "fn"
-          } ],
-          "type" : "basic"
-        } ]
-      }, {
         "description" : "Caps Lock to function",
         "manipulators" : [ {
           "from" : {

@@ -9,8 +9,10 @@ ZSH_THEME="robbyrussell"
 source $ZSH/oh-my-zsh.sh
 
 # Include configs
-source "$DIR/configs/fasd.zsh"
 source "$DIR/configs/aliases.zsh"
+
+# Zoxide
+eval "$(zoxide init zsh)"
 
 KEYTIMEOUT=1
 
