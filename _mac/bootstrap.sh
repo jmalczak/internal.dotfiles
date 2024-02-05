@@ -81,21 +81,6 @@ echo "Configuring ranger"
 create_if_not_exist .config/ranger
 replace_symlink _mac/ranger .config/ranger
 
-echo "Configuring yabai"
-create_if_not_exist .config/yabai
-replace_symlink _mac/yabai .config/yabai
-
-echo "Configuring skhd"
-create_if_not_exist .config/skhd
-replace_symlink _mac/skhd .config/skhd
-
-
-echo "Configure moom"
-
-replace_symlink _mac/moom/com.manytricks.Moom.plist Library/Preferences/com.manytricks.Moom.plist
-# Allow moom to show grid by custom keyboard shortcut
-defaults write com.manytricks.Moom "Trigger Mouse Grid Via Custom Control" -bool YES
-
 
 echo "Configure macOS"
 
