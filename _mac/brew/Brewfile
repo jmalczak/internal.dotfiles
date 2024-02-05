@@ -15,7 +15,6 @@ brew "mas"
 brew "yqrashawn/goku/goku"
 cask "karabiner-elements"
 cask "appcleaner"
-cask "parallels"
 cask "spotify"
 cask "bettertouchtool"
 cask "visual-studio-code"
@@ -33,6 +32,7 @@ cask "xnviewmp"
 cask "adguard"
 cask "fork"
 cask "vimr"
+cask "kitty"
 mas "Amphetamine", id: 937984704
 mas "Microsoft Remote Desktop", id: 1295203466
 mas "Be Focused Pro - Focus Timer", id: 961632517
