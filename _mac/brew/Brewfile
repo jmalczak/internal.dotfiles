@@ -33,6 +33,8 @@ cask "adguard"
 cask "fork"
 cask "vimr"
 cask "kitty"
+cask "arc"
+cask "raycast"
 mas "Amphetamine", id: 937984704
 mas "Microsoft Remote Desktop", id: 1295203466
 mas "Be Focused Pro - Focus Timer", id: 961632517
