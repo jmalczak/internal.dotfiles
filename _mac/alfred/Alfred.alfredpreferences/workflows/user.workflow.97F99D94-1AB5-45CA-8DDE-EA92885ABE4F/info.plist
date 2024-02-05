@@ -5788,12 +5788,12 @@ main($query,"TRACK","");
 				<key>concurrently</key>
 				<false/>
 				<key>escaping</key>
-				<integer>38</integer>
+				<integer>100</integer>
 				<key>script</key>
 				<string>&lt;?php
 require './src/action.php';
 $query = serialize(array("", "", "", "", "", "", "", "play" /* other_action */, "", "", "", "", "", "", "", "" , "", "", "", "", "", ""));
-main($query,"TRACK","");
+main($query,$argv[1],"");
 ?&gt;</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
@@ -11333,6 +11333,8 @@ main($query,"TRACK","");
 			<integer>1</integer>
 		</dict>
 		<dict>
+			<key>config</key>
+			<dict/>
 			<key>type</key>
 			<string>alfred.workflow.utility.junction</string>
 			<key>uid</key>
@@ -17425,7 +17427,7 @@ Example: https://open.spotify.com/track/6hxgHNJjadmCHAJPXw6AYL</string>
 		</dict>
 	</array>
 	<key>version</key>
-	<string>13.0</string>
+	<string>13.2</string>
 	<key>webaddress</key>
 	<string>https://alfred-spotify-mini-player.com</string>
 </dict>

@@ -23,7 +23,6 @@
     }
   ],
   "files.autoSave": "afterDelay",
-  "editor.minimap.enabled": false,
   "explorer.confirmDragAndDrop": false,
   "vim.insertModeKeyBindings": [
     {
@@ -56,5 +55,9 @@
   "security.workspace.trust.untrustedFiles": "open",
   "[clojure]": {
     "editor.defaultFormatter": "pedrorgirardi.vscode-cljfmt"
-  }
+  },
+  "editor.fontSize": 14,
+  "workbench.colorTheme": "JetBrains Rider Dark Theme",
+  "polyglot-notebook.defaultNotebookExtension": ".dib",
+  "polyglot-notebook.defaultNotebookLanguage": "csharp"
 }

@@ -38,4 +38,12 @@
 
         {:des "Caps Lock to page down up",
          :rules [[:!C!T!O!up_arrow :page_up],
-                 [:!C!T!O!down_arrow :page_down]]}]}
+                 [:!C!T!O!down_arrow :page_down]]}
+
+        {:des "Caps Lock to apps",
+         :rules [[:!C!T!O!a :!Qa],
+                 [:!C!T!O!c :!Qc],
+                 [:!C!T!O!t :!Qt],
+                 [:!C!T!O!r :!Qr]]}
+        ]
+ }

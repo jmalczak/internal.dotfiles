@@ -36,7 +36,6 @@ cask "fork"
 cask "vimr"
 mas "Amphetamine", id: 937984704
 mas "Microsoft Remote Desktop", id: 1295203466
-mas "Things 3", id: 904280696  
 mas "Be Focused Pro - Focus Timer", id: 961632517
 mas "HEIC Converter", id: 1294126402 
 mas "Flashcard Hero", id: 650802274 
