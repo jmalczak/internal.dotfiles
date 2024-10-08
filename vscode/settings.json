@@ -35,7 +35,6 @@
       ]
     }
   ],
-  "workbench.statusBar.visible": false,
   "files.exclude": {
     "**\/.hg": true,
     "**\/CVS": true,
@@ -59,5 +58,11 @@
   "editor.fontSize": 14,
   "workbench.colorTheme": "JetBrains Rider Dark Theme",
   "polyglot-notebook.defaultNotebookExtension": ".dib",
-  "polyglot-notebook.defaultNotebookLanguage": "csharp"
+  "polyglot-notebook.defaultNotebookLanguage": "csharp",
+  "git.openRepositoryInParentFolders": "always",
+  "security.workspace.trust.banner": "never",
+  "azure.resourceFilter": [
+    "c179449c-2c7d-4709-a59a-96956486de59/10cb370b-4b5d-4d55-b00b-c4772048c813",
+    "c179449c-2c7d-4709-a59a-96956486de59/91407fe4-6a71-44cb-9e5d-cf192afc590c"
+  ]
 }

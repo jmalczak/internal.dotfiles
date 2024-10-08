@@ -8,6 +8,8 @@ export LC_CTYPE="UTF-8"
 ZSH_THEME="robbyrussell"
 source $ZSH/oh-my-zsh.sh
 
+plugins=(git)
+
 # Include configs
 source "$DIR/configs/aliases.zsh"
 

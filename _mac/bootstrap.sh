@@ -81,6 +81,9 @@ echo "Configuring ranger"
 create_if_not_exist .config/ranger
 replace_symlink _mac/ranger .config/ranger
 
+echo "Configuring espanso"
+create_if_not_exist "Library/Application Support/espanso/match" 
+replace_symlink _mac/espanso/match "Library/Application Support/espanso/match"
 
 echo "Configure macOS"
 

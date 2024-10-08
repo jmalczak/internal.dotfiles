@@ -61,7 +61,7 @@
 	<key>description</key>
 	<string>Search Keyboard Maestro Macros</string>
 	<key>disabled</key>
-	<false/>
+	<true/>
 	<key>name</key>
 	<string>Alfred Maestro</string>
 	<key>objects</key>

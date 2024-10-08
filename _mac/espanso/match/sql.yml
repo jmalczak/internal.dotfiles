@@ -1,0 +1,474 @@
+# espanso match file
+
+# For a complete introduction, visit the official docs at: https://espanso.org/docs/
+
+# You can use this file to define the base matches (aka snippets)
+# that will be available in every application when using espanso.
+
+# Matches are substitution rules: when you type the "trigger" string
+# it gets replaced by the "replace" string.
+matches:
+  - trigger: ":sql:clean-stats"
+    label: ":sql:clean-stats"
+    replace: |
+             DBCC DROPCLEANBUFFERS 
+             DBCC FREEPROCCACHE
+
+  - trigger: ":sql:index-sizes"
+    label: ":sql:index-sizes"
+    replace: |
+            -- Ensure a USE  statement has been executed first.
+            SELECT [DatabaseName]
+                ,[ObjectId]
+                ,[ObjectName]
+                ,[IndexId]
+                ,idx.name
+                ,[IndexDescription]
+                ,CONVERT(DECIMAL(16, 1), (SUM([avg_record_size_in_bytes] * [record_count]) / (1024.0 * 1024))) AS [IndexSize(MB)]
+                ,[lastupdated] AS [StatisticLastUpdated]
+                ,[AvgFragmentationInPercent]
+            FROM (
+                SELECT DISTINCT DB_Name(Database_id) AS 'DatabaseName'
+                    ,OBJECT_ID AS ObjectId
+                    ,Object_Name(Object_id) AS ObjectName
+                    ,Index_ID AS IndexId
+                    ,Index_Type_Desc AS IndexDescription
+                    ,avg_record_size_in_bytes
+                    ,record_count
+                    ,STATS_DATE(object_id, index_id) AS 'lastupdated'
+                    ,CONVERT([varchar](512), round(Avg_Fragmentation_In_Percent, 3)) AS 'AvgFragmentationInPercent'
+                FROM sys.dm_db_index_physical_stats(db_id(), NULL, NULL, NULL, 'detailed')
+                WHERE OBJECT_ID IS NOT NULL
+                ) T
+                LEFT JOIN sys.indexes idx ON idx.object_id = T.ObjectId AND idx.index_id = T.IndexId
+            GROUP BY DatabaseName
+                ,ObjectId
+                ,ObjectName
+                ,IndexId
+                ,idx.name
+                ,IndexDescription
+                ,lastupdated
+                ,AvgFragmentationInPercent
+            ORDER BY SUM([avg_record_size_in_bytes] * [record_count]) DESC
+
+  - trigger: ":sql:index-stats-update"
+    label: ":sql:index-stats-update"
+    replace: |
+            SELECT DISTINCT
+            OBJECT_NAME(s.[object_id]) AS TableName,
+            c.name AS ColumnName,
+            s.name AS StatName,
+            STATS_DATE(s.[object_id], s.stats_id) AS LastUpdated,
+            DATEDIFF(d,STATS_DATE(s.[object_id], s.stats_id),getdate()) DaysOld,
+            dsp.modification_counter,
+            s.auto_created,
+            s.user_created,
+            s.no_recompute,
+            s.[object_id],
+            s.stats_id,
+            sc.stats_column_id,
+            sc.column_id
+            FROM sys.stats s
+            JOIN sys.stats_columns sc
+            ON sc.[object_id] = s.[object_id] AND sc.stats_id = s.stats_id
+            JOIN sys.columns c ON c.[object_id] = sc.[object_id] AND c.column_id = sc.column_id
+            JOIN sys.partitions par ON par.[object_id] = s.[object_id]
+            JOIN sys.objects obj ON par.[object_id] = obj.[object_id]
+            CROSS APPLY sys.dm_db_stats_properties(sc.[object_id], s.stats_id) AS dsp
+            WHERE OBJECTPROPERTY(s.OBJECT_ID,'IsUserTable') = 1
+            AND (s.auto_created = 1 OR s.user_created = 1)
+            ORDER BY DaysOld;
+
+  - trigger: ":sql:index-usage"
+    label: ":sql:index-usage"
+    replace: |
+            SELECT
+            objects.name AS Table_name,
+            indexes.name AS Index_name,
+            dm_db_index_usage_stats.user_seeks,
+            dm_db_index_usage_stats.user_scans,
+            dm_db_index_usage_stats.user_updates
+            FROM
+            sys.dm_db_index_usage_stats
+            INNER JOIN sys.objects ON dm_db_index_usage_stats.OBJECT_ID = objects.OBJECT_ID
+            INNER JOIN sys.indexes ON indexes.index_id = dm_db_index_usage_stats.index_id AND dm_db_index_usage_stats.OBJECT_ID = indexes.OBJECT_ID
+            WHERE
+            indexes.is_primary_key = 0 --This line excludes primary key constarint
+            AND
+            indexes. is_unique = 0 --This line excludes unique key constarint
+            AND
+            dm_db_index_usage_stats.user_updates <> 0 -- This line excludes indexes SQL Server hasn’t done any work with
+            AND
+            dm_db_index_usage_stats. user_lookups = 0
+            AND
+            dm_db_index_usage_stats.user_seeks = 0
+            AND
+            dm_db_index_usage_stats.user_scans = 0
+            ORDER BY
+            indexes.name
+
+  - trigger: ":sql:index-missing"
+    label: ":sql:index-missing"
+    replace: |
+            -- Missing Index Script
+            -- Original Author: Pinal Dave 
+            SELECT TOP 25
+            DB_Name(dm_mid.database_id) AS DatabaseID,
+
+            dm_migs.avg_user_impact*(dm_migs.user_seeks+dm_migs.user_scans) Avg_Estimated_Impact,
+            dm_migs.last_user_seek AS Last_User_Seek,
+            OBJECT_NAME(dm_mid.OBJECT_ID,dm_mid.database_id) AS [TableName],
+            'CREATE INDEX [IX_' + OBJECT_NAME(dm_mid.OBJECT_ID,dm_mid.database_id) + '_'
+            + REPLACE(REPLACE(REPLACE(ISNULL(dm_mid.equality_columns,''),', ','_'),'[',''),']','') 
+            + CASE
+            WHEN dm_mid.equality_columns IS NOT NULL
+            AND dm_mid.inequality_columns IS NOT NULL THEN '_'
+            ELSE ''
+            END
+            + REPLACE(REPLACE(REPLACE(ISNULL(dm_mid.inequality_columns,''),', ','_'),'[',''),']','')
+            + ']'
+            + ' ON ' + dm_mid.statement
+            + ' (' + ISNULL (dm_mid.equality_columns,'')
+            + CASE WHEN dm_mid.equality_columns IS NOT NULL AND dm_mid.inequality_columns 
+            IS NOT NULL THEN ',' ELSE
+            '' END
+            + ISNULL (dm_mid.inequality_columns, '')
+            + ')'
+            + ISNULL (' INCLUDE (' + dm_mid.included_columns + ')', '') AS Create_Statement
+            FROM sys.dm_db_missing_index_groups dm_mig
+            INNER JOIN sys.dm_db_missing_index_group_stats dm_migs
+            ON dm_migs.group_handle = dm_mig.index_group_handle
+            INNER JOIN sys.dm_db_missing_index_details dm_mid
+            ON dm_mig.index_handle = dm_mid.index_handle
+            WHERE dm_mid.database_ID = DB_ID()
+            ORDER BY Avg_Estimated_Impact DESC
+            GO
+
+  - trigger: ":sql:diagnostics"
+    label: ":sql:diagnostics"
+    replace: |
+                  /*
+                  Updated: 2018-12-18
+
+                  + open new query window using SSMS.
+                  + paste this whole script. 
+                  + right click on the query windows and then 
+                  >> Results to -> Results to file
+                  + execute the query
+                  + select the file to keep the results.
+
+                  */
+                  set nocount on
+
+                  --(0) - timestamp and metadata
+                  print '*** General information'
+                  print 'SysDateTime'
+                  select sysdatetime()
+                  print 'ServerName'
+                  select @@servername
+                  print 'DatabaseName'
+                  select db_name() as DatabaseName
+
+                  -- Get SLO Level and size
+                  print '*** Get SLO Level and size'
+                  SELECT   DATABASEPROPERTYEX(db_name(), 'Collation') AS Collation  
+                  SELECT   DATABASEPROPERTYEX(db_name(), 'Edition') AS Edition
+                  SELECT   DATABASEPROPERTYEX(db_name(), 'ServiceObjective') AS ServiceObjective
+                  SELECT   DATABASEPROPERTYEX(db_name(), 'MaxSizeInBytes') AS MaxSizeInBytes
+                  SELECT   DATABASEPROPERTYEX(db_name(), 'IsParameterizationForced') AS Parameterization 
+                  SELECT   @@version
+
+                  --(1)
+                  print '***When were Statistics last updated on all indexes? '
+                  select 
+                              ObjectSchema = OBJECT_SCHEMA_NAME(s.object_id)
+                            ,ObjectName = object_name(s.object_id) 
+                            ,StatsName = s.name
+                            ,sp.last_updated
+                            ,idx.rowcnt CurrentRowCnt
+                            ,sp.rows RowCntWhenStatsTaken
+                            ,sp.rows_sampled
+                            ,sp.modification_counter
+                            ,pct_modified = str((1.0*sp.modification_counter / idx.rowcnt))
+                            ,LastStatsUpdatedWith = iif(sp.rows_sampled=sp.rows,'FullScan','Partial')
+                            ,'UPDATE STATISTICS ['+ OBJECT_SCHEMA_NAME(s.object_id) + '].[' + object_name(s.object_id)  + '](' + s.name + ') WITH FULLSCAN'
+                        from sys.stats s cross apply sys.dm_db_stats_properties(s.object_id,s.stats_id) sp 
+                        join sys.objects o on s.object_id = o.object_id
+                        left join sys.sysindexes idx on idx.id = s.object_id and idx.indid in (0,1)
+                        where s.object_id>100 and o.schema_id!=4 /*sys*/ and idx.rowcnt>0
+                        order by modification_counter desc
+                  --(2)
+                  print '***Get fragmentation info for all indexes above a certain size in the current database'
+                  -- Note: This could take some time on a very large database
+                  SELECT DB_NAME(database_id) AS [Database Name], OBJECT_NAME(ps.OBJECT_ID) AS [Object Name], 
+                  i.name AS [Index Name], ps.index_id, ps.index_type_desc, ps.avg_fragmentation_in_percent, 
+                  ps.fragment_count, ps.page_count, i.fill_factor, i.has_filter, i.filter_definition
+                  FROM sys.dm_db_index_physical_stats(DB_ID(),NULL, NULL, NULL ,'LIMITED') AS ps
+                  INNER JOIN sys.indexes AS i WITH (NOLOCK)
+                  ON ps.[object_id] = i.[object_id] 
+                  AND ps.index_id = i.index_id
+                  WHERE database_id = DB_ID()
+                  AND page_count > 250
+                  ORDER BY avg_fragmentation_in_percent DESC OPTION (RECOMPILE);
+
+                  --(3)
+                  print '***Index Read/Write stats (all tables in current DB) ordered by Reads'
+                  SELECT OBJECT_NAME(s.[object_id]) AS [ObjectName], i.name AS [IndexName], i.index_id,
+                         user_seeks + user_scans + user_lookups AS [Reads], s.user_updates AS [Writes],  
+                         i.type_desc AS [IndexType], i.fill_factor AS [FillFactor], i.has_filter, i.filter_definition, 
+                         s.last_user_scan, s.last_user_lookup, s.last_user_seek
+                  FROM sys.dm_db_index_usage_stats AS s WITH (NOLOCK)
+                  INNER JOIN sys.indexes AS i WITH (NOLOCK)
+                  ON s.[object_id] = i.[object_id]
+                  WHERE OBJECTPROPERTY(s.[object_id],'IsUserTable') = 1
+                  AND i.index_id = s.index_id
+                  AND s.database_id = DB_ID()
+                  ORDER BY user_seeks + user_scans + user_lookups DESC OPTION (RECOMPILE); -- Order by reads
+
+
+                  --(4)
+                  print '***full rowset of sys.dm_db_file_space_usage'
+                  select * from sys.dm_db_file_space_usage
+                  go 
+
+                  print '***Table sizes'
+                  SELECT 
+                      s.Name AS SchemaName,
+                      t.NAME AS TableName,
+                      p.rows AS RowCounts,
+                      SUM(a.total_pages) * 8 AS TotalSpaceKB, 
+                      SUM(a.used_pages) * 8 AS UsedSpaceKB, 
+                      (SUM(a.total_pages) - SUM(a.used_pages)) * 8 AS UnusedSpaceKB
+                  FROM 
+                      sys.tables t
+                  INNER JOIN 
+                      sys.schemas s ON s.schema_id = t.schema_id
+                  INNER JOIN      
+                      sys.indexes i ON t.OBJECT_ID = i.object_id
+                  INNER JOIN 
+                      sys.partitions p ON i.object_id = p.OBJECT_ID AND i.index_id = p.index_id
+                  INNER JOIN 
+                      sys.allocation_units a ON p.partition_id = a.container_id
+                  WHERE 
+                      t.NAME NOT LIKE 'dt%'    -- filter out system tables for diagramming
+                      AND t.is_ms_shipped = 0
+                      AND i.OBJECT_ID > 255 
+                  GROUP BY 
+                      t.Name, s.Name, p.Rows
+                  ORDER BY 
+                      s.Name, t.Name
+
+                  go
+                  print 'sp_spaceused'
+                  exec sp_spaceused
+                  go
+
+
+                  -- (5)
+                  print '***missing indexes'
+                  SELECT 
+                       id.[object_id] AS [ObjectID]
+                      ,id.[statement] AS [FullyQualifiedObjectName]
+                      ,id.[equality_columns] AS [EqualityColumns]
+                      ,id.[inequality_columns] AS [InEqualityColumns]
+                      ,id.[included_columns] AS [IncludedColumns]
+                      ,gs.[unique_compiles] AS [UniqueCompiles]
+                      ,gs.[user_seeks] AS [UserSeeks]
+                      ,gs.[user_scans] AS [UserScans]
+                      ,gs.[last_user_seek] AS [LastUserSeekTime]
+                      ,gs.[last_user_scan] AS [LastUserScanTime]
+                      ,gs.[avg_total_user_cost] AS [AvgTotalUserCost]
+                      ,gs.[avg_user_impact] AS [AvgUserImpact]
+                      ,gs.[system_seeks] AS [SystemSeeks]
+                      ,gs.[system_scans] AS [SystemScans]
+                      ,gs.[last_system_seek] AS [LastSystemSeekTime]
+                      ,gs.[last_system_scan] AS [LastSystemScanTime]
+                      ,gs.[avg_total_system_cost] AS [AvgTotalSystemCost]
+                      ,gs.[avg_system_impact] AS [AvgSystemImpact]
+                      ,gs.[user_seeks] * gs.[avg_total_user_cost] * (gs.[avg_user_impact] * 0.01) AS [IndexAdvantage]
+                      ,'CREATE INDEX [Missing_IXNC_' + OBJECT_NAME(id.[object_id]) + '_' + REPLACE(REPLACE(REPLACE(ISNULL(id.[equality_columns], ''), ', ', '_'), '[', ''), ']', '') + CASE
+                          WHEN id.[equality_columns] IS NOT NULL
+                              AND id.[inequality_columns] IS NOT NULL
+                              THEN '_'
+                          ELSE ''
+                          END + REPLACE(REPLACE(REPLACE(ISNULL(id.[inequality_columns], ''), ', ', '_'), '[', ''), ']', '') + '_' + LEFT(CAST(NEWID() AS [nvarchar](64)), 5) + ']' + ' ON ' + id.[statement] + ' (' + ISNULL(id.[equality_columns], '') + CASE
+                          WHEN id.[equality_columns] IS NOT NULL
+                              AND id.[inequality_columns] IS NOT NULL
+                              THEN ','
+                          ELSE ''
+                          END + ISNULL(id.[inequality_columns], '') + ')' + ISNULL(' INCLUDE (' + id.[included_columns] + ')', '') AS [ProposedIndex]
+                      ,CAST(CURRENT_TIMESTAMP AS [smalldatetime]) AS [CollectionDate]
+                  FROM [sys].[dm_db_missing_index_group_stats] gs WITH (NOLOCK)
+                  INNER JOIN [sys].[dm_db_missing_index_groups] ig WITH (NOLOCK)
+                      ON gs.[group_handle] = ig.[index_group_handle]
+                  INNER JOIN [sys].[dm_db_missing_index_details] id WITH (NOLOCK)
+                      ON ig.[index_handle] = id.[index_handle]
+                  ORDER BY [IndexAdvantage] DESC
+                  OPTION (RECOMPILE); 
+
+
+                  -- (6)
+
+                  print '***Get Average Waits for Database';
+                  WITH [Waits] AS
+                      (SELECT
+                          [wait_type],
+                          [wait_time_ms] / 1000.0 AS [WaitS],
+                          ([wait_time_ms] - [signal_wait_time_ms]) / 1000.0 AS [ResourceS],
+                          [signal_wait_time_ms] / 1000.0 AS [SignalS],
+                          [waiting_tasks_count] AS [WaitCount],
+                          100.0 * [wait_time_ms] / SUM ([wait_time_ms]) OVER() AS [Percentage],
+                          ROW_NUMBER() OVER(ORDER BY [wait_time_ms] DESC) AS [RowNum]
+                      FROM sys.dm_db_wait_stats
+                      WHERE [wait_type] NOT IN (
+                          N'BROKER_EVENTHANDLER',         N'BROKER_RECEIVE_WAITFOR',
+                          N'BROKER_TASK_STOP',            N'BROKER_TO_FLUSH',
+                          N'BROKER_TRANSMITTER',          N'CHECKPOINT_QUEUE',
+                          N'CHKPT',                       N'CLR_AUTO_EVENT',
+                          N'CLR_MANUAL_EVENT',            N'CLR_SEMAPHORE',
+                          N'DBMIRROR_DBM_EVENT',          N'DBMIRROR_EVENTS_QUEUE',
+                          N'DBMIRROR_WORKER_QUEUE',       N'DBMIRRORING_CMD',
+                          N'DIRTY_PAGE_POLL',             N'DISPATCHER_QUEUE_SEMAPHORE',
+                          N'EXECSYNC',                    N'FSAGENT',
+                          N'FT_IFTS_SCHEDULER_IDLE_WAIT', N'FT_IFTSHC_MUTEX',
+                          N'HADR_CLUSAPI_CALL',           N'HADR_FILESTREAM_IOMGR_IOCOMPLETION',
+                          N'HADR_LOGCAPTURE_WAIT',        N'HADR_NOTIFICATION_DEQUEUE',
+                          N'HADR_TIMER_TASK',             N'HADR_WORK_QUEUE',
+                          N'KSOURCE_WAKEUP',              N'LAZYWRITER_SLEEP',
+                          N'LOGMGR_QUEUE',                N'ONDEMAND_TASK_QUEUE',
+                          N'PWAIT_ALL_COMPONENTS_INITIALIZED',
+                          N'QDS_PERSIST_TASK_MAIN_LOOP_SLEEP',
+                          N'QDS_CLEANUP_STALE_QUERIES_TASK_MAIN_LOOP_SLEEP',
+                          N'REQUEST_FOR_DEADLOCK_SEARCH', N'RESOURCE_QUEUE',
+                          N'SERVER_IDLE_CHECK',           N'SLEEP_BPOOL_FLUSH',
+                          N'SLEEP_DBSTARTUP',             N'SLEEP_DCOMSTARTUP',
+                          N'SLEEP_MASTERDBREADY',         N'SLEEP_MASTERMDREADY',
+                          N'SLEEP_MASTERUPGRADED',        N'SLEEP_MSDBSTARTUP',
+                          N'SLEEP_SYSTEMTASK',            N'SLEEP_TASK',
+                          N'SLEEP_TEMPDBSTARTUP',         N'SNI_HTTP_ACCEPT',
+                          N'SP_SERVER_DIAGNOSTICS_SLEEP', N'SQLTRACE_BUFFER_FLUSH',
+                          N'SQLTRACE_INCREMENTAL_FLUSH_SLEEP',
+                          N'SQLTRACE_WAIT_ENTRIES',       N'WAIT_FOR_RESULTS',
+                          N'WAITFOR',                     N'WAITFOR_TASKSHUTDOWN',
+                          N'WAIT_XTP_HOST_WAIT',          N'WAIT_XTP_OFFLINE_CKPT_NEW_LOG',
+                          N'WAIT_XTP_CKPT_CLOSE',         N'XE_DISPATCHER_JOIN',
+                          N'XE_DISPATCHER_WAIT',          N'XE_TIMER_EVENT')
+                      )
+                  SELECT
+                      [W1].[wait_type] AS [WaitType],
+                      CAST ([W1].[WaitS] AS DECIMAL (16, 2)) AS [Wait_S],
+                      CAST ([W1].[ResourceS] AS DECIMAL (16, 2)) AS [Resource_S],
+                      CAST ([W1].[SignalS] AS DECIMAL (16, 2)) AS [Signal_S],
+                      [W1].[WaitCount] AS [WaitCount],
+                      CAST ([W1].[Percentage] AS DECIMAL (5, 2)) AS [Percentage],
+                      CAST (([W1].[WaitS] / [W1].[WaitCount]) AS DECIMAL (16, 4)) AS [AvgWait_S],
+                      CAST (([W1].[ResourceS] / [W1].[WaitCount]) AS DECIMAL (16, 4)) AS [AvgRes_S],
+                      CAST (([W1].[SignalS] / [W1].[WaitCount]) AS DECIMAL (16, 4)) AS [AvgSig_S]
+                  FROM [Waits] AS [W1]
+                  INNER JOIN [Waits] AS [W2]
+                      ON [W2].[RowNum] <= [W1].[RowNum]
+                  GROUP BY [W1].[RowNum], [W1].[wait_type], [W1].[WaitS],
+                      [W1].[ResourceS], [W1].[SignalS], [W1].[WaitCount], [W1].[Percentage]
+                  HAVING SUM ([W2].[Percentage]) - [W1].[Percentage] < 95; -- percentage threshold
+                  GO
+                   
+
+                  --(7) - Currently active queries 
+                  print '*** exec requests'
+                  select * from sys.dm_exec_requests
+
+                  print '*** exec sessions'
+                  SELECT
+                      c.session_id, c.net_transport, c.encrypt_option,
+                      c.auth_scheme, s.host_name, s.program_name,
+                      s.client_interface_name, s.login_name, s.nt_domain,
+                      s.nt_user_name, s.original_login_name, c.connect_time,
+                      s.login_time
+                  FROM sys.dm_exec_connections AS c
+                  JOIN sys.dm_exec_sessions AS s
+                      ON c.session_id = s.session_id
+
+
+                  --(8) - db stats
+                  print '*** content of dm_db_resource_stats'
+                  select * from sys.dm_db_resource_stats
+
+                  --(9)
+                  print '*** current blocking and running batches'
+                  SELECT
+                         sql_text.text,
+                         locks.resource_type,
+                         locks.resource_subtype,
+                         locks.resource_description,
+                         locks.resource_associated_entity_id,
+                         locks.request_mode,
+                         locks.request_status,
+                         ses.login_name,
+                         ses.original_login_name,
+                         ses.login_time,
+                         ses.host_name,
+                         ses.program_name,
+                         ses.last_request_start_time
+                  FROM sys.dm_tran_locks locks
+                  JOIN sys.dm_exec_sessions ses
+                         ON locks.request_session_id = ses.session_id
+                  JOIN sys.sysprocesses pr
+                         ON ses.session_id = pr.spid
+                  CROSS APPLY sys.dm_exec_sql_text(pr.sql_handle) sql_text;
+
+                  --(10) - database properties
+                  print '*** sys.databases'
+                  select * from sys.databases
+
+                  --(11) deadlocks
+                  print '*** deadlock'
+                  SET QUOTED_IDENTIFIER ON;
+                  WITH CTE AS (
+                      SELECT CAST(event_data AS XML)  AS target_data_XML 
+                      FROM sys.fn_xe_telemetry_blob_target_read_file('dl', null, null, null)
+                  )
+                  SELECT target_data_XML.value('(/event/@timestamp)[1]', 'DateTime2') AS Timestamp,
+                     target_data_XML.query('/event/data[@name=''xml_report'']/value/deadlock') AS deadlock_xml,
+                     target_data_XML.query('/event/data[@name=''database_name'']/value').value('(/value)[1]', 'nvarchar(100)') AS db_name
+                  FROM CTE 
+
+                  --(12)
+                  Print '*** database_scoped_configurations'
+                  select * from sys.database_scoped_configurations
+
+                  --(0) - timestamp
+                  select sysdatetime()
+
+  - trigger: ":sql:table-size"
+    label: ":sql:table-size"
+    replace: |
+            SELECT 
+                '[' + (OBJECT_SCHEMA_NAME(tables.object_id,db_id()) 
+                + '].[' + tables.NAME + ']') AS TableName,
+                indexes.name as indexName,
+                sum(partitions.rows) as RowCounts,
+                sum(allocation_units.total_pages) as TotalPages, 
+                sum(allocation_units.used_pages) as UsedPages, 
+                sum(allocation_units.data_pages) as DataPages,
+                (sum(allocation_units.total_pages) * 8) / 1024 as TotalSpaceMB, 
+                (sum(allocation_units.used_pages) * 8) / 1024 as UsedSpaceMB, 
+                (sum(allocation_units.data_pages) * 8) / 1024 as DataSpaceMB,
+                GETDATE() AS Datemodified
+            FROM 
+                sys.tables tables
+            INNER JOIN      
+                sys.indexes indexes ON tables.OBJECT_ID = indexes.object_id
+            INNER JOIN 
+                sys.partitions partitions ON indexes.object_id = partitions.OBJECT_ID
+                     AND indexes.index_id = partitions.index_id
+            INNER JOIN 
+                sys.allocation_units allocation_units ON partitions.partition_id = allocation_units.container_id
+            WHERE 
+               -- t.NAME NOT LIKE 'dt%' AND
+                indexes.OBJECT_ID > 255 AND   
+                indexes.index_id <= 1
+            GROUP BY 
+                tables.object_id,tables.NAME, indexes.object_id, indexes.index_id, indexes.name 
+                    having sum(partitions.rows) > 0
+            ORDER BY 
+                TotalSpaceMB desc

@@ -1,4 +1,6 @@
 cask_args appdir: "/Applications"
+tap "FelixKratz/formulae"
+tap "espanso/espanso"
 brew "ack"
 brew "fzf"
 brew "neovim"
@@ -32,9 +34,8 @@ cask "xnviewmp"
 cask "adguard"
 cask "fork"
 cask "vimr"
-cask "kitty"
-cask "arc"
-cask "raycast"
+cask "iTerm2"
+cask "espanso"
 mas "Amphetamine", id: 937984704
 mas "Microsoft Remote Desktop", id: 1295203466
 mas "Be Focused Pro - Focus Timer", id: 961632517

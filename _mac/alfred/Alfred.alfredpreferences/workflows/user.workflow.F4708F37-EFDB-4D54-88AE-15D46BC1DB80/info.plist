@@ -20,7 +20,7 @@
 			</dict>
 			<dict>
 				<key>destinationuid</key>
-				<string>F1B2D9DD-9385-4641-B653-E4EFFE45A9B6</string>
+				<string>FFF9C1B9-5961-4167-8625-CB5393E611D8</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -624,6 +624,12 @@ function run(argv) {
     $(historyFile).stringByDeletingLastPathComponent.js,
     true, undefined, undefined)
 
+  // If not saving history, delete file if it exists and return
+  if (historySize === 0) {
+    fileManager.removeItemAtPathError(historyFile, undefined)
+    return
+  }
+
   // Prepend to history
   const history = fileManager.fileExistsAtPath(historyFile) ?
     JSON.parse(readFile(historyFile)) :
@@ -938,15 +944,29 @@ fi</string>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>tasksettings</key>
-				<dict/>
-				<key>taskuid</key>
-				<string>com.alfredapp.automation.core/files-and-folders/file.quicklook</string>
+				<key>behaviour</key>
+				<integer>0</integer>
+				<key>fontmode</key>
+				<integer>0</integer>
+				<key>footertext</key>
+				<string></string>
+				<key>inputfile</key>
+				<string></string>
+				<key>inputtype</key>
+				<integer>2</integer>
+				<key>loadingtext</key>
+				<string></string>
+				<key>outputmode</key>
+				<integer>0</integer>
+				<key>scriptinput</key>
+				<integer>0</integer>
+				<key>stackview</key>
+				<false/>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.automation.task</string>
+			<string>alfred.workflow.userinterface.text</string>
 			<key>uid</key>
-			<string>F1B2D9DD-9385-4641-B653-E4EFFE45A9B6</string>
+			<string>FFF9C1B9-5961-4167-8625-CB5393E611D8</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
@@ -1280,13 +1300,13 @@ fi</string>
 	<key>readme</key>
 	<string>## Usage
 
-Run shell commands without opening a terminal via the `cmd` keyword. Your shell’s configuration files will be loaded, making your custom aliases, functions, and more available to the environment. Commands execute relative to the frontmost Finder window to allow quick changes on the current working folder. Exit status is shown as a notification and output in a Quick Look window.
+Run shell commands without opening a terminal via the `cmd` keyword. Your shell’s configuration files will be loaded, making your custom aliases, functions, and more available to the environment. Commands execute relative to the frontmost Finder window to allow quick changes on the current working folder. Exit status is shown as a notification and output in a [Text View](https://www.alfredapp.com/help/workflows/userinterface/text/).
 
 ![Sending command](images/about/cmd.png)
 
-* &lt;kbd&gt;↩&lt;/kbd&gt;: Run the command.
-* &lt;kbd&gt;⌘&lt;/kbd&gt;&lt;kbd&gt;↩&lt;/kbd&gt;: Run command but do not open output in Quick Look.
-* &lt;kbd&gt;⌥&lt;/kbd&gt;&lt;kbd&gt;↩&lt;/kbd&gt;: Show command history to rerun a command.
+* &lt;kbd&gt;↩&lt;/kbd&gt; Run the command.
+* &lt;kbd&gt;⌘&lt;/kbd&gt;&lt;kbd&gt;↩&lt;/kbd&gt; Run command but do not open output in Text View.
+* &lt;kbd&gt;⌥&lt;/kbd&gt;&lt;kbd&gt;↩&lt;/kbd&gt; Show command history to rerun a command.
 
 Use the [Universal Action](https://www.alfredapp.com/help/features/universal-actions/) to send files and text as arguments to a command. If the placeholder from the [Workflow’s Configuration](https://www.alfredapp.com/help/workflows/user-configuration/) is present in the text, it will be replaced with your arguments, otherwise they are appended to the end.
 
@@ -1298,9 +1318,9 @@ The same modifiers apply. Separate command histories are created for commands ra
 
 ![Command history](images/about/history.png)
 
-* &lt;kbd&gt;↩&lt;/kbd&gt;: Run command.
-* &lt;kbd&gt;⌘&lt;/kbd&gt;&lt;kbd&gt;↩&lt;/kbd&gt;: Delete all command histories and saved outputs.
-* &lt;kbd&gt;⌘&lt;/kbd&gt;&lt;kbd&gt;Y&lt;/kbd&gt; (or tap &lt;kbd&gt;⇧&lt;/kbd&gt;): Quick Look saved output.</string>
+* &lt;kbd&gt;↩&lt;/kbd&gt; Run command.
+* &lt;kbd&gt;⌘&lt;/kbd&gt;&lt;kbd&gt;↩&lt;/kbd&gt; Delete all command histories and saved outputs.
+* &lt;kbd&gt;⌘&lt;/kbd&gt;&lt;kbd&gt;Y&lt;/kbd&gt; (or tap &lt;kbd&gt;⇧&lt;/kbd&gt;) Quick Look saved output.</string>
 	<key>uidata</key>
 	<dict>
 		<key>0169CF13-E2F6-4290-9AEE-7EA0A9C36E26</key>
@@ -1520,7 +1540,7 @@ The same modifiers apply. Separate command histories are created for commands ra
 			<key>ypos</key>
 			<real>135</real>
 		</dict>
-		<key>F1B2D9DD-9385-4641-B653-E4EFFE45A9B6</key>
+		<key>FFF9C1B9-5961-4167-8625-CB5393E611D8</key>
 		<dict>
 			<key>xpos</key>
 			<real>2480</real>
@@ -1602,13 +1622,17 @@ If it is not present, arguments are appended to the end.</string>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>default</key>
-				<string>20</string>
-				<key>placeholder</key>
-				<string></string>
-				<key>required</key>
+				<key>defaultvalue</key>
+				<integer>20</integer>
+				<key>markercount</key>
+				<integer>21</integer>
+				<key>maxvalue</key>
+				<integer>100</integer>
+				<key>minvalue</key>
+				<integer>0</integer>
+				<key>onlystoponmarkers</key>
 				<false/>
-				<key>trim</key>
+				<key>showmarkers</key>
 				<true/>
 			</dict>
 			<key>description</key>
@@ -1616,7 +1640,7 @@ If it is not present, arguments are appended to the end.</string>
 			<key>label</key>
 			<string>History Size</string>
 			<key>type</key>
-			<string>textfield</string>
+			<string>slider</string>
 			<key>variable</key>
 			<string>history_size</string>
 		</dict>
@@ -1624,7 +1648,7 @@ If it is not present, arguments are appended to the end.</string>
 	<key>variablesdontexport</key>
 	<array/>
 	<key>version</key>
-	<string>2023.1</string>
+	<string>2024.1</string>
 	<key>webaddress</key>
 	<string>https://github.com/vitorgalvao/run-command-workflow/</string>
 </dict>

@@ -27,7 +27,7 @@ except ImportError:
     # Python 2.7
     from collections import Sequence
 
-__version__ = '1.6.0'
+__version__ = '1.7.0'
 
 # These attributes will not conflict with any real python attribute
 # They are added to the decorated test method and processed later
@@ -215,9 +215,15 @@ def feed_data(func, new_name, test_data_docstring, *args, **kwargs):
     This internal method decorator feeds the test data item to the test.
 
     """
-    @wraps(func)
-    def wrapper(self):
-        return func(self, *args, **kwargs)
+    if inspect.iscoroutinefunction(func):
+        @wraps(func)
+        async def wrapper(self):
+            return await func(self, *args, **kwargs)
+    else:
+        @wraps(func)
+        def wrapper(self):
+            return func(self, *args, **kwargs)
+
     wrapper.__name__ = new_name
     wrapper.__wrapped__ = func
     # set docstring if exists
