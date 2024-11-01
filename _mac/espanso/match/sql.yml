@@ -8,14 +8,12 @@
 # Matches are substitution rules: when you type the "trigger" string
 # it gets replaced by the "replace" string.
 matches:
-  - trigger: ":sql:clean-stats"
-    label: ":sql:clean-stats"
+  - trigger: ":sql:clean stats"
     replace: |
              DBCC DROPCLEANBUFFERS 
              DBCC FREEPROCCACHE
 
-  - trigger: ":sql:index-sizes"
-    label: ":sql:index-sizes"
+  - trigger: ":sql:index sizes"
     replace: |
             -- Ensure a USE  statement has been executed first.
             SELECT [DatabaseName]
@@ -51,8 +49,7 @@ matches:
                 ,AvgFragmentationInPercent
             ORDER BY SUM([avg_record_size_in_bytes] * [record_count]) DESC
 
-  - trigger: ":sql:index-stats-update"
-    label: ":sql:index-stats-update"
+  - trigger: ":sql:index stats update"
     replace: |
             SELECT DISTINCT
             OBJECT_NAME(s.[object_id]) AS TableName,
@@ -79,8 +76,7 @@ matches:
             AND (s.auto_created = 1 OR s.user_created = 1)
             ORDER BY DaysOld;
 
-  - trigger: ":sql:index-usage"
-    label: ":sql:index-usage"
+  - trigger: ":sql:index usage"
     replace: |
             SELECT
             objects.name AS Table_name,
@@ -107,8 +103,7 @@ matches:
             ORDER BY
             indexes.name
 
-  - trigger: ":sql:index-missing"
-    label: ":sql:index-missing"
+  - trigger: ":sql:index missing"
     replace: |
             -- Missing Index Script
             -- Original Author: Pinal Dave 
@@ -145,7 +140,6 @@ matches:
             GO
 
   - trigger: ":sql:diagnostics"
-    label: ":sql:diagnostics"
     replace: |
                   /*
                   Updated: 2018-12-18
@@ -439,8 +433,7 @@ matches:
                   --(0) - timestamp
                   select sysdatetime()
 
-  - trigger: ":sql:table-size"
-    label: ":sql:table-size"
+  - trigger: ":sql:table size"
     replace: |
             SELECT 
                 '[' + (OBJECT_SCHEMA_NAME(tables.object_id,db_id()) 

@@ -1,0 +1,69 @@
+# espanso match file
+
+# For a complete introduction, visit the official docs at: https://espanso.org/docs/
+
+# You can use this file to define the base matches (aka snippets)
+# that will be available in every application when using espanso.
+
+# Matches are substitution rules: when you type the "trigger" string
+# it gets replaced by the "replace" string.
+matches:
+  - trigger: ":shortcut:ag search"
+    replace: "ag: ag search phrase /folder"
+
+  - trigger: ":shortcut:fzf list"
+    replace: "command ** tab display list"
+
+  - trigger: ":shortcut:fzf list"
+    replace: "command | fzf display list"
+
+  - trigger: ":shortcut:fzf command history"
+    replace: "command history ctrl + r"
+    
+  - trigger: ":shortcut:fzf files and directories"
+    replace: "files and directories ctrl + t"
+
+  - trigger: ":shortcut:rider select device"
+    replace: "option + shift + F11"
+
+  - trigger: ":shortcut:vim close buffer"
+    replace: ":bd"
+
+  - trigger: ":shortcut:vim ctrlp search"
+    replace: ",e"
+
+  - trigger: ":shortcut:vim movement find backwards"
+    replace: "F T"
+
+  - trigger: ":shortcut:vim movement find forward"
+    replace: "f t"
+    
+  - trigger: ":shortcut:vim movement next block"
+    replace: "shift ]"
+
+  - trigger: ":shortcut:vim movement previous block"
+    replace: "shift ["
+
+  - trigger: ":shortcut:vim window only visible"
+    replace: "ctrl + w, o"
+
+  - trigger: ":shortcut:vscode command palette"
+    replace: "cmd + shift + p"
+
+  - trigger: ":shortcut:vscode show file in sidebar"
+    replace: "cmd + shift + e"
+
+  - trigger: ":shortcut:vscode show/hide sidebar"
+    replace: "cmd + b"
+
+  - trigger: ":shortcut:zsh clear line"
+    replace: "ctrl + u"
+
+  - trigger: ":shortcut:zsh clear screen"
+    replace: "ctrl + l"
+
+  - trigger: ":shortcut:zsh search history"
+    replace: "ctrl + r"
+
+  - trigger: ":shortcut:zz go to folder"
+    replace: "zz folder"
