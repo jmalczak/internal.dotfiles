@@ -14,19 +14,19 @@ import sys
 import textwrap
 import traceback
 
-from typing import cast, Any, List, NoReturn, Optional, Tuple
+from typing import cast, Any, NoReturn
 
 import coverage
 from coverage import Coverage
 from coverage import env
-from coverage.collector import HAS_CTRACER
 from coverage.config import CoverageConfig
 from coverage.control import DEFAULT_DATAFILE
+from coverage.core import HAS_CTRACER
 from coverage.data import combinable_files, debug_data_file
 from coverage.debug import info_header, short_stack, write_formatted_info
 from coverage.exceptions import _BaseCoverageException, _ExceptionDuringRun, NoSource
 from coverage.execfile import PyRunner
-from coverage.results import Numbers, should_fail_under
+from coverage.results import display_covered, should_fail_under
 from coverage.version import __url__
 
 # When adding to this file, alphabetization is important.  Look for
@@ -41,10 +41,6 @@ class Opts:
     append = optparse.make_option(
         "-a", "--append", action="store_true",
         help="Append coverage data to .coverage, otherwise it starts clean each time.",
-    )
-    keep = optparse.make_option(
-        "", "--keep", action="store_true",
-        help="Keep original coverage files, otherwise they are deleted.",
     )
     branch = optparse.make_option(
         "", "--branch", action="store_true",
@@ -68,21 +64,21 @@ class Opts:
             "Accepts Python regexes, which must be quoted."
         ),
     )
-    combine_datafile = optparse.make_option(
+    datafile = optparse.make_option(
         "", "--data-file", action="store", metavar="DATAFILE",
         help=(
             "Base name of the data files to operate on. " +
             "Defaults to '.coverage'. [env: COVERAGE_FILE]"
         ),
     )
-    input_datafile = optparse.make_option(
+    datafle_input = optparse.make_option(
         "", "--data-file", action="store", metavar="INFILE",
         help=(
             "Read coverage data for report generation from this file. " +
             "Defaults to '.coverage'. [env: COVERAGE_FILE]"
         ),
     )
-    output_datafile = optparse.make_option(
+    datafile_output = optparse.make_option(
         "", "--data-file", action="store", metavar="OUTFILE",
         help=(
             "Write the recorded coverage data to this file. " +
@@ -119,6 +115,10 @@ class Opts:
             "Include only files whose paths match one of these patterns. " +
             "Accepts shell-style wildcards, which must be quoted."
         ),
+    )
+    keep = optparse.make_option(
+        "", "--keep", action="store_true",
+        help="Keep original coverage files, otherwise they are deleted.",
     )
     pylib = optparse.make_option(
         "-L", "--pylib", action="store_true",
@@ -217,10 +217,7 @@ class Opts:
     )
     timid = optparse.make_option(
         "", "--timid", action="store_true",
-        help=(
-            "Use a simpler but slower trace method. Try this if you get " +
-            "seemingly impossible results!"
-        ),
+        help="Use the slower Python trace function core.",
     )
     title = optparse.make_option(
         "", "--title", action="store", metavar="TITLE",
@@ -284,7 +281,7 @@ class CoverageOptionParser(optparse.OptionParser):
         """Used to stop the optparse error handler ending the process."""
         pass
 
-    def parse_args_ok(self, args: List[str]) -> Tuple[bool, Optional[optparse.Values], List[str]]:
+    def parse_args_ok(self, args: list[str]) -> tuple[bool, optparse.Values | None, list[str]]:
         """Call optparse.parse_args, but return a triple:
 
         (ok, options, args)
@@ -320,9 +317,9 @@ class CmdOptionParser(CoverageOptionParser):
     def __init__(
         self,
         action: str,
-        options: List[optparse.Option],
+        options: list[optparse.Option],
         description: str,
-        usage: Optional[str] = None,
+        usage: str | None = None,
     ):
         """Create an OptionParser for a coverage.py command.
 
@@ -373,7 +370,7 @@ COMMANDS = {
         "annotate",
         [
             Opts.directory,
-            Opts.input_datafile,
+            Opts.datafle_input,
             Opts.ignore_errors,
             Opts.include,
             Opts.omit,
@@ -389,7 +386,7 @@ COMMANDS = {
         "combine",
         [
             Opts.append,
-            Opts.combine_datafile,
+            Opts.datafile,
             Opts.keep,
             Opts.quiet,
             ] + GLOBAL_ARGS,
@@ -422,7 +419,7 @@ COMMANDS = {
     "erase": CmdOptionParser(
         "erase",
         [
-            Opts.combine_datafile
+            Opts.datafile,
             ] + GLOBAL_ARGS,
         description="Erase previously collected coverage data.",
     ),
@@ -438,7 +435,7 @@ COMMANDS = {
         [
             Opts.contexts,
             Opts.directory,
-            Opts.input_datafile,
+            Opts.datafle_input,
             Opts.fail_under,
             Opts.ignore_errors,
             Opts.include,
@@ -463,7 +460,7 @@ COMMANDS = {
         "json",
         [
             Opts.contexts,
-            Opts.input_datafile,
+            Opts.datafle_input,
             Opts.fail_under,
             Opts.ignore_errors,
             Opts.include,
@@ -480,7 +477,7 @@ COMMANDS = {
     "lcov": CmdOptionParser(
         "lcov",
         [
-            Opts.input_datafile,
+            Opts.datafle_input,
             Opts.fail_under,
             Opts.ignore_errors,
             Opts.include,
@@ -496,7 +493,7 @@ COMMANDS = {
         "report",
         [
             Opts.contexts,
-            Opts.input_datafile,
+            Opts.datafle_input,
             Opts.fail_under,
             Opts.format,
             Opts.ignore_errors,
@@ -520,7 +517,7 @@ COMMANDS = {
             Opts.branch,
             Opts.concurrency,
             Opts.context,
-            Opts.output_datafile,
+            Opts.datafile_output,
             Opts.include,
             Opts.module,
             Opts.omit,
@@ -536,7 +533,7 @@ COMMANDS = {
     "xml": CmdOptionParser(
         "xml",
         [
-            Opts.input_datafile,
+            Opts.datafle_input,
             Opts.fail_under,
             Opts.ignore_errors,
             Opts.include,
@@ -552,9 +549,9 @@ COMMANDS = {
 
 
 def show_help(
-    error: Optional[str] = None,
-    topic: Optional[str] = None,
-    parser: Optional[optparse.OptionParser] = None,
+    error: str | None = None,
+    topic: str | None = None,
+    parser: optparse.OptionParser | None = None,
 ) -> None:
     """Display an error message, or the named topic."""
     assert error or topic or parser
@@ -608,7 +605,7 @@ class CoverageScript:
         self.global_option = False
         self.coverage: Coverage
 
-    def command_line(self, argv: List[str]) -> int:
+    def command_line(self, argv: list[str]) -> int:
         """The bulk of the command line interface to coverage.py.
 
         `argv` is the argument list to process.
@@ -623,7 +620,7 @@ class CoverageScript:
 
         # The command syntax we parse depends on the first argument.  Global
         # switch syntax always starts with an option.
-        parser: Optional[optparse.OptionParser]
+        parser: optparse.OptionParser | None
         self.global_option = argv[0].startswith("-")
         if self.global_option:
             parser = GlobalOptionParser()
@@ -715,7 +712,7 @@ class CoverageScript:
                 skip_empty=options.skip_empty,
                 sort=options.sort,
                 output_format=options.format,
-                **report_args
+                **report_args,
             )
         elif options.action == "annotate":
             self.coverage.annotate(directory=options.directory, **report_args)
@@ -727,25 +724,25 @@ class CoverageScript:
                 skip_empty=options.skip_empty,
                 show_contexts=options.show_contexts,
                 title=options.title,
-                **report_args
+                **report_args,
             )
         elif options.action == "xml":
             total = self.coverage.xml_report(
                 outfile=options.outfile,
                 skip_empty=options.skip_empty,
-                **report_args
+                **report_args,
             )
         elif options.action == "json":
             total = self.coverage.json_report(
                 outfile=options.outfile,
                 pretty_print=options.pretty_print,
                 show_contexts=options.show_contexts,
-                **report_args
+                **report_args,
             )
         elif options.action == "lcov":
             total = self.coverage.lcov_report(
                 outfile=options.outfile,
-                **report_args
+                **report_args,
             )
         else:
             # There are no other possible actions.
@@ -763,7 +760,7 @@ class CoverageScript:
             precision = cast(int, self.coverage.get_option("report:precision"))
             if should_fail_under(total, fail_under, precision):
                 msg = "total of {total} is less than fail-under={fail_under:.{p}f}".format(
-                    total=Numbers(precision=precision).display_covered(total),
+                    total=display_covered(total, precision),
                     fail_under=fail_under,
                     p=precision,
                 )
@@ -775,7 +772,7 @@ class CoverageScript:
     def do_help(
         self,
         options: optparse.Values,
-        args: List[str],
+        args: list[str],
         parser: optparse.OptionParser,
     ) -> bool:
         """Deal with help requests.
@@ -810,7 +807,7 @@ class CoverageScript:
 
         return False
 
-    def do_run(self, options: optparse.Values, args: List[str]) -> int:
+    def do_run(self, options: optparse.Values, args: list[str]) -> int:
         """Implementation of 'coverage run'."""
 
         if not args:
@@ -842,7 +839,7 @@ class CoverageScript:
                     show_help(
                         "Options affecting multiprocessing must only be specified " +
                         "in a configuration file.\n" +
-                        f"Remove --{opt_name} from the command line."
+                        f"Remove --{opt_name} from the command line.",
                     )
                     return ERR
 
@@ -869,7 +866,7 @@ class CoverageScript:
 
         return OK
 
-    def do_debug(self, args: List[str]) -> int:
+    def do_debug(self, args: list[str]) -> int:
         """Implementation of 'coverage debug'."""
 
         if not args:
@@ -892,7 +889,7 @@ class CoverageScript:
             write_formatted_info(print, "config", self.coverage.config.debug_info())
         elif args[0] == "premain":
             print(info_header("premain"))
-            print(short_stack())
+            print(short_stack(full=True))
         elif args[0] == "pybehave":
             write_formatted_info(print, "pybehave", env.debug_info())
         else:
@@ -902,7 +899,7 @@ class CoverageScript:
         return OK
 
 
-def unshell_list(s: str) -> Optional[List[str]]:
+def unshell_list(s: str) -> list[str] | None:
     """Turn a command-line argument into a list."""
     if not s:
         return None
@@ -916,7 +913,7 @@ def unshell_list(s: str) -> Optional[List[str]]:
     return s.split(",")
 
 
-def unglob_args(args: List[str]) -> List[str]:
+def unglob_args(args: list[str]) -> list[str]:
     """Interpret shell wildcards for platforms that need it."""
     if env.WINDOWS:
         globbed = []
@@ -961,7 +958,7 @@ HELP_TOPICS = {
 }
 
 
-def main(argv: Optional[List[str]] = None) -> Optional[int]:
+def main(argv: list[str] | None = None) -> int | None:
     """The main entry point to coverage.py.
 
     This is installed as the script entry point.
@@ -994,14 +991,14 @@ def main(argv: Optional[List[str]] = None) -> Optional[int]:
 #   pip install git+https://github.com/emin63/ox_profile.git
 #
 # $set_env.py: COVERAGE_PROFILE - Set to use ox_profile.
-_profile = os.environ.get("COVERAGE_PROFILE", "")
+_profile = os.getenv("COVERAGE_PROFILE")
 if _profile:                                                # pragma: debugging
     from ox_profile.core.launchers import SimpleLauncher    # pylint: disable=import-error
     original_main = main
 
     def main(                                               # pylint: disable=function-redefined
-        argv: Optional[List[str]] = None,
-    ) -> Optional[int]:
+        argv: list[str] | None = None,
+    ) -> int | None:
         """A wrapper around main that profiles."""
         profiler = SimpleLauncher.launch()
         try:

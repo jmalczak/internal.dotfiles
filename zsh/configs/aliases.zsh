@@ -41,7 +41,7 @@ function gplall() {
 alias tm="TERM=screen-256color tmux attach -t default || tmux new -s default"
 
 # Paths
-alias ls="eza"
+alias ls="eza --icons"
 function cs() { cd "$1" && ls; } 
 function ..() { cd .. && ls; } 
 
